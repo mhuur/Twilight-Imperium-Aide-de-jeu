@@ -1,0 +1,1242 @@
+/* =====================================================================
+   Données Twilight Imperium IV — Base + Prophecy of Kings + Codex (Keleres)
+   Noms propres en anglais (canoniques) ; descriptions en français.
+   Vous pouvez corriger librement n'importe quelle valeur ci-dessous.
+   ===================================================================== */
+const TI4_DATA = {
+
+  /* ---------- Statistiques de base des unités ---------- */
+  unitStats: [
+    {"unit":"Vaisseau amiral","upgrade":false,"cost":"8","combat":"variable (x2)","move":"1","capacity":"3","abilities":["Encaisser les dégâts","Statistiques propres à chaque faction : valeur de combat, capacité et capacités spéciales varient selon la faction"]},
+    {"unit":"Soleil de Guerre","upgrade":false,"cost":"12","combat":"3 (x3)","move":"2","capacity":"6","abilities":["Encaisser les dégâts","Bombardement 3 (x3)","Ignore les Boucliers planétaires des autres joueurs","Nécessite la technologie Soleil de Guerre pour être produit"]},
+    {"unit":"Cuirassé","upgrade":false,"cost":"4","combat":"5","move":"1","capacity":"1","abilities":["Encaisser les dégâts","Bombardement 5"]},
+    {"unit":"Cuirassé","upgrade":true,"cost":"4","combat":"5","move":"2","capacity":"1","abilities":["Encaisser les dégâts","Bombardement 5","Insensible aux cartes Action \"Tir direct\""]},
+    {"unit":"Croiseur","upgrade":false,"cost":"2","combat":"7","move":"2","capacity":"","abilities":[]},
+    {"unit":"Croiseur","upgrade":true,"cost":"2","combat":"6","move":"3","capacity":"1","abilities":[]},
+    {"unit":"Destroyer","upgrade":false,"cost":"1","combat":"9","move":"2","capacity":"","abilities":["Barrage anti-chasseur 9 (x2)"]},
+    {"unit":"Destroyer","upgrade":true,"cost":"1","combat":"8","move":"2","capacity":"","abilities":["Barrage anti-chasseur 6 (x3)"]},
+    {"unit":"Transporteur","upgrade":false,"cost":"3","combat":"9","move":"1","capacity":"4","abilities":[]},
+    {"unit":"Transporteur","upgrade":true,"cost":"3","combat":"9","move":"2","capacity":"6","abilities":[]},
+    {"unit":"Chasseur","upgrade":false,"cost":"1/2","combat":"9","move":"","capacity":"","abilities":["Doit être transporté (ne peut pas se déplacer seul)","Compte dans la réserve de flotte au-delà de la capacité de vos vaisseaux"]},
+    {"unit":"Chasseur","upgrade":true,"cost":"1/2","combat":"8","move":"2","capacity":"","abilities":["Peut se déplacer sans être transporté","Compte dans la réserve de flotte au-delà de la capacité de vos vaisseaux"]},
+    {"unit":"Infanterie","upgrade":false,"cost":"1/2","combat":"8","move":"","capacity":"","abilities":["Force terrestre"]},
+    {"unit":"Infanterie","upgrade":true,"cost":"1/2","combat":"7","move":"","capacity":"","abilities":["Force terrestre","Quand cette unité est détruite, lancez 1 dé ; sur 6+, replacez l'unité sur cette planète"]},
+    {"unit":"Méca","upgrade":false,"cost":"2","combat":"6","move":"","capacity":"","abilities":["Force terrestre","Encaisser les dégâts","Capacités propres à chaque faction (voir la fiche de la faction)"]},
+    {"unit":"PDS","upgrade":false,"cost":"2","combat":"","move":"","capacity":"","abilities":["Canon spatial 6","Bouclier planétaire","Structure (ne peut pas se déplacer)"]},
+    {"unit":"PDS","upgrade":true,"cost":"2","combat":"","move":"","capacity":"","abilities":["Canon spatial 5","Bouclier planétaire","Canon spatial longue portée : peut tirer dans les systèmes adjacents","Structure (ne peut pas se déplacer)"]},
+    {"unit":"Dock spatial","upgrade":false,"cost":"","combat":"","move":"","capacity":"","abilities":["Production (ressources de la planète + 2)","Structure ; placé via la carte Construction (ne se produit pas)"]},
+    {"unit":"Dock spatial","upgrade":true,"cost":"","combat":"","move":"","capacity":"","abilities":["Production (ressources de la planète + 4)","Jusqu'à 3 chasseurs produits ici ne comptent pas dans la valeur de Production","Structure (ne peut pas se déplacer)"]}
+  ],
+
+  /* ---------- Cartes Stratégie (version Prophecy of Kings) ---------- */
+  strategyCards: [
+    {"id":"leadership","name":"Gouvernance","initiative":1,"primary":"Le joueur actif gagne 3 pions de commandement. Ensuite, il peut dépenser n'importe quelle quantité d'influence pour gagner 1 pion de commandement par tranche de 3 influence dépensée.","secondary":"Chaque autre joueur peut dépenser n'importe quelle quantité d'influence pour gagner 1 pion de commandement par tranche de 3 influence. (Ne nécessite pas de dépenser un jeton de stratégie.)"},
+    {"id":"diplomacy","name":"Diplomatie","initiative":2,"primary":"Choisissez 1 système, autre que Mecatol Rex, contenant une planète que vous contrôlez ; chaque autre joueur place un pion de commandement de ses renforts dans ce système. Ensuite, préparez jusqu'à 2 planètes épuisées que vous contrôlez.","secondary":"Dépensez 1 pion de votre réserve stratégique pour préparer jusqu'à 2 planètes épuisées que vous contrôlez."},
+    {"id":"politics","name":"Politique","initiative":3,"primary":"Choisissez un joueur autre que l'orateur : il gagne le jeton d'orateur. Piochez 2 cartes Action. Regardez les 2 cartes du dessus du paquet de projets ; replacez-les sur le dessus ou le dessous, dans l'ordre de votre choix.","secondary":"Dépensez 1 pion de votre réserve stratégique pour piocher 2 cartes Action."},
+    {"id":"construction","name":"Construction","initiative":4,"primary":"Placez 1 dock spatial ou 1 PDS sur une planète que vous contrôlez. Ensuite, placez 1 PDS supplémentaire sur une planète que vous contrôlez.","secondary":"Dépensez 1 pion de votre réserve stratégique et placez-le dans n'importe quel système ; vous pouvez alors placer 1 dock spatial ou 1 PDS sur une planète que vous contrôlez dans ce système."},
+    {"id":"trade","name":"Commerce","initiative":5,"primary":"Gagnez 3 biens commerciaux. Réapprovisionnez vos commodités. Choisissez n'importe quel nombre d'autres joueurs ; ces joueurs réapprovisionnent leurs commodités.","secondary":"Dépensez 1 pion de votre réserve stratégique pour réapprovisionner vos commodités."},
+    {"id":"warfare","name":"Guerre","initiative":6,"primary":"Retirez 1 de vos pions de commandement du plateau ; puis gagnez 1 pion de commandement. Ensuite, redistribuez n'importe quel nombre de jetons sur votre feuille de commandement.","secondary":"Dépensez 1 pion de votre réserve stratégique pour utiliser la capacité Production de 1 de vos docks spatiaux situés dans votre système d'origine."},
+    {"id":"technology","name":"Technologie","initiative":7,"primary":"Recherchez 1 technologie. Ensuite, vous pouvez dépenser 6 ressources pour rechercher 1 technologie supplémentaire.","secondary":"Dépensez 1 pion de votre réserve stratégique et 4 ressources pour rechercher 1 technologie."},
+    {"id":"imperial","name":"Intrigue","initiative":8,"primary":"Marquez immédiatement 1 objectif public si vous en remplissez les conditions. Ensuite, gagnez 1 point de victoire si vous contrôlez Mecatol Rex ; sinon, piochez 1 objectif secret.","secondary":"Dépensez 1 pion de votre réserve stratégique pour piocher 1 objectif secret."}
+  ],
+
+  /* ---------- Planètes (tuiles-système : Base + PoK) ---------- */
+  planets: [
+    {"name":"Mecatol Rex","resources":1,"influence":6,"trait":null,"techSpecialty":null,"system":"Tuile 18","legendary":false},
+    {"name":"Wellon","resources":1,"influence":2,"trait":"industrial","techSpecialty":"yellow","system":"Tuile 19","legendary":false},
+    {"name":"Vefut II","resources":2,"influence":2,"trait":"hazardous","techSpecialty":null,"system":"Tuile 20","legendary":false},
+    {"name":"Thibah","resources":1,"influence":1,"trait":"industrial","techSpecialty":"blue","system":"Tuile 21","legendary":false},
+    {"name":"Tar'mann","resources":1,"influence":1,"trait":"industrial","techSpecialty":"green","system":"Tuile 22","legendary":false},
+    {"name":"Saudor","resources":2,"influence":2,"trait":"industrial","techSpecialty":null,"system":"Tuile 23","legendary":false},
+    {"name":"Mehar Xull","resources":1,"influence":3,"trait":"hazardous","techSpecialty":"red","system":"Tuile 24","legendary":false},
+    {"name":"Quann","resources":2,"influence":1,"trait":"cultural","techSpecialty":null,"system":"Tuile 25","legendary":false},
+    {"name":"Lodor","resources":3,"influence":1,"trait":"cultural","techSpecialty":null,"system":"Tuile 26","legendary":false},
+    {"name":"New Albion","resources":1,"influence":1,"trait":"industrial","techSpecialty":"green","system":"Tuile 27","legendary":false},
+    {"name":"Starpoint","resources":3,"influence":1,"trait":"hazardous","techSpecialty":null,"system":"Tuile 27","legendary":false},
+    {"name":"Tequ'ran","resources":2,"influence":0,"trait":"hazardous","techSpecialty":null,"system":"Tuile 28","legendary":false},
+    {"name":"Torkan","resources":0,"influence":3,"trait":"cultural","techSpecialty":null,"system":"Tuile 28","legendary":false},
+    {"name":"Qucen'n","resources":1,"influence":2,"trait":"industrial","techSpecialty":null,"system":"Tuile 29","legendary":false},
+    {"name":"Rarron","resources":0,"influence":3,"trait":"cultural","techSpecialty":null,"system":"Tuile 29","legendary":false},
+    {"name":"Mellon","resources":0,"influence":2,"trait":"cultural","techSpecialty":null,"system":"Tuile 30","legendary":false},
+    {"name":"Zohbat","resources":3,"influence":1,"trait":"hazardous","techSpecialty":null,"system":"Tuile 30","legendary":false},
+    {"name":"Lazar","resources":1,"influence":0,"trait":"industrial","techSpecialty":"yellow","system":"Tuile 31","legendary":false},
+    {"name":"Sakulag","resources":2,"influence":1,"trait":"hazardous","techSpecialty":null,"system":"Tuile 31","legendary":false},
+    {"name":"Dal Bootha","resources":0,"influence":2,"trait":"cultural","techSpecialty":null,"system":"Tuile 32","legendary":false},
+    {"name":"Xxehan","resources":1,"influence":1,"trait":"cultural","techSpecialty":null,"system":"Tuile 32","legendary":false},
+    {"name":"Corneeq","resources":1,"influence":2,"trait":"cultural","techSpecialty":null,"system":"Tuile 33","legendary":false},
+    {"name":"Resculon","resources":2,"influence":0,"trait":"cultural","techSpecialty":null,"system":"Tuile 33","legendary":false},
+    {"name":"Centauri","resources":1,"influence":3,"trait":"cultural","techSpecialty":null,"system":"Tuile 34","legendary":false},
+    {"name":"Gral","resources":1,"influence":1,"trait":"industrial","techSpecialty":"blue","system":"Tuile 34","legendary":false},
+    {"name":"Bereg","resources":3,"influence":1,"trait":"hazardous","techSpecialty":null,"system":"Tuile 35","legendary":false},
+    {"name":"Lirta IV","resources":2,"influence":3,"trait":"hazardous","techSpecialty":null,"system":"Tuile 35","legendary":false},
+    {"name":"Arnor","resources":2,"influence":1,"trait":"industrial","techSpecialty":null,"system":"Tuile 36","legendary":false},
+    {"name":"Lor","resources":1,"influence":2,"trait":"industrial","techSpecialty":null,"system":"Tuile 36","legendary":false},
+    {"name":"Arinam","resources":1,"influence":2,"trait":"industrial","techSpecialty":null,"system":"Tuile 37","legendary":false},
+    {"name":"Meer","resources":0,"influence":4,"trait":"hazardous","techSpecialty":"red","system":"Tuile 37","legendary":false},
+    {"name":"Abyz","resources":3,"influence":0,"trait":"hazardous","techSpecialty":null,"system":"Tuile 38","legendary":false},
+    {"name":"Fria","resources":2,"influence":0,"trait":"hazardous","techSpecialty":null,"system":"Tuile 38","legendary":false},
+    {"name":"Archon Vail","resources":1,"influence":3,"trait":"hazardous","techSpecialty":"blue","system":"Tuile 59 (PoK)","legendary":false},
+    {"name":"Perimeter","resources":2,"influence":1,"trait":"industrial","techSpecialty":null,"system":"Tuile 60 (PoK)","legendary":false},
+    {"name":"Ang","resources":2,"influence":0,"trait":"industrial","techSpecialty":"red","system":"Tuile 61 (PoK)","legendary":false},
+    {"name":"Sem-Lor","resources":3,"influence":2,"trait":"cultural","techSpecialty":"yellow","system":"Tuile 62 (PoK)","legendary":false},
+    {"name":"Vorhal","resources":0,"influence":2,"trait":"cultural","techSpecialty":"green","system":"Tuile 63 (PoK)","legendary":false},
+    {"name":"Atlas","resources":3,"influence":1,"trait":"hazardous","techSpecialty":null,"system":"Tuile 64 (PoK)","legendary":false},
+    {"name":"Primor","resources":2,"influence":1,"trait":"cultural","techSpecialty":null,"system":"Tuile 65 (PoK)","legendary":true},
+    {"name":"Hope's End","resources":3,"influence":0,"trait":"hazardous","techSpecialty":null,"system":"Tuile 66 (PoK)","legendary":true},
+    {"name":"Cormund","resources":2,"influence":0,"trait":"hazardous","techSpecialty":null,"system":"Tuile 67 (PoK)","legendary":false},
+    {"name":"Everra","resources":3,"influence":1,"trait":"cultural","techSpecialty":null,"system":"Tuile 68 (PoK)","legendary":false},
+    {"name":"Accoen","resources":2,"influence":3,"trait":"industrial","techSpecialty":null,"system":"Tuile 69 (PoK)","legendary":false},
+    {"name":"Jeol Ir","resources":2,"influence":3,"trait":"industrial","techSpecialty":null,"system":"Tuile 69 (PoK)","legendary":false},
+    {"name":"Kraag","resources":2,"influence":1,"trait":"hazardous","techSpecialty":null,"system":"Tuile 70 (PoK)","legendary":false},
+    {"name":"Siig","resources":0,"influence":2,"trait":"hazardous","techSpecialty":null,"system":"Tuile 70 (PoK)","legendary":false},
+    {"name":"Ba'kal","resources":3,"influence":2,"trait":"industrial","techSpecialty":null,"system":"Tuile 71 (PoK)","legendary":false},
+    {"name":"Lisis","resources":2,"influence":2,"trait":"industrial","techSpecialty":null,"system":"Tuile 72 (PoK)","legendary":false},
+    {"name":"Velnor","resources":2,"influence":1,"trait":"industrial","techSpecialty":"red","system":"Tuile 72 (PoK)","legendary":false},
+    {"name":"Cealdri","resources":0,"influence":2,"trait":"cultural","techSpecialty":"yellow","system":"Tuile 73 (PoK)","legendary":false},
+    {"name":"Xanhact","resources":0,"influence":1,"trait":"hazardous","techSpecialty":null,"system":"Tuile 73 (PoK)","legendary":false},
+    {"name":"Vega Major","resources":2,"influence":1,"trait":"cultural","techSpecialty":null,"system":"Tuile 74 (PoK)","legendary":false},
+    {"name":"Vega Minor","resources":1,"influence":2,"trait":"cultural","techSpecialty":"blue","system":"Tuile 74 (PoK)","legendary":false},
+    {"name":"Loki","resources":1,"influence":2,"trait":"cultural","techSpecialty":null,"system":"Tuile 75 (PoK)","legendary":false},
+    {"name":"Abaddon","resources":1,"influence":0,"trait":"cultural","techSpecialty":null,"system":"Tuile 75 (PoK)","legendary":false},
+    {"name":"Ashtroth","resources":2,"influence":0,"trait":"hazardous","techSpecialty":null,"system":"Tuile 75 (PoK)","legendary":false},
+    {"name":"Rigel I","resources":0,"influence":1,"trait":"hazardous","techSpecialty":null,"system":"Tuile 76 (PoK)","legendary":false},
+    {"name":"Rigel II","resources":1,"influence":2,"trait":"industrial","techSpecialty":null,"system":"Tuile 76 (PoK)","legendary":false},
+    {"name":"Rigel III","resources":1,"influence":1,"trait":"industrial","techSpecialty":"green","system":"Tuile 76 (PoK)","legendary":false},
+    {"name":"Mallice","resources":0,"influence":3,"trait":"cultural","techSpecialty":null,"system":"Tuile 82 (PoK)","legendary":true},
+    {"name":"Mirage","resources":1,"influence":2,"trait":"cultural","techSpecialty":"green","system":"Jeton frontière Mirage (PoK)","legendary":true}
+  ],
+
+  /* ---------- Factions (25) ---------- */
+  factions: [
+    {
+      "id": "the-arborec",
+      "name": "The Arborec", "nameFr": "Les Arborec",
+      "expansion": "base",
+      "color": "#3a7d2c",
+      "summary": "Faction organique centrée sur la production d'infanterie : ses infanteries (Letani Warriors) ont la capacité Production, ce qui permet de fabriquer des unités depuis le sol, mais ses chantiers spatiaux ne peuvent pas produire d'infanterie.",
+      "abilities": [
+        {"name": "Mitosis", "text": "Vos chantiers spatiaux ne peuvent pas produire d'infanterie. Au début de la phase de statut, placez 1 infanterie de vos renforts sur une planète que vous contrôlez."}
+      ],
+      "commodities": 3,
+      "startingTech": ["Magen Defense Grid"],
+      "startingUnits": "1 dock spatial, 1 PDS, 1 croiseur, 1 transporteur, 2 chasseurs, 4 infanteries (Letani Warriors)",
+      "homeSystem": {
+        "name": "Nestphar",
+        "planets": [
+          {"name": "Nestphar", "resources": 3, "influence": 2, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Duha Menaimon", "cost": "8", "combat": "7 (x2)", "move": "1", "capacity": "5", "text": "Après avoir activé ce système, vous pouvez produire jusqu'à 5 unités dans ce système. (Encaisser les dégâts)"},
+      "mech": {"name": "Letani Behemoth", "text": "Aussi considéré comme une structure. DÉPLOIEMENT : après avoir épuisé une planète contenant l'une de vos structures, vous pouvez y remplacer 1 structure par 1 méca. (Bouclier planétaire, Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Letani Ospha", "text": "ACTION : Épuisez cette carte et choisissez le vaisseau non-chasseur d'un joueur : ce joueur peut le remplacer par un vaisseau de ses renforts coûtant jusqu'à 2 de plus que le vaisseau remplacé."},
+        "commander": {"name": "Dirzuga Rophal", "unlock": "Avoir 12 forces terrestres sur des planètes que vous contrôlez.", "text": "Après qu'un autre joueur active un système contenant 1 ou plusieurs de vos unités ayant Production : vous pouvez produire 1 unité dans ce système."},
+        "hero": {"name": "Letani Miasmiala", "unlock": "Avoir validé 3 objectifs.", "text": "ACTION : Produisez un nombre quelconque d'unités dans un nombre quelconque de systèmes contenant vos forces terrestres. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Bioplasmosis", "type": "green", "prereqs": "2 vert", "text": "À la fin de la phase de statut, vous pouvez retirer un nombre quelconque d'infanteries des planètes que vous contrôlez et les placer sur 1 ou plusieurs planètes que vous contrôlez dans le même système ou un système adjacent."},
+        {"name": "Letani Warrior II", "type": "unit", "prereqs": "améliore Letani Warrior I", "text": "Amélioration de l'infanterie Letani Warrior (combat 7, Production 2). Conserve la capacité Production."}
+      ],
+      "factionUnits": [
+        {"name": "Letani Warrior I", "type": "Infantry", "cost": "1", "combat": "8", "move": "", "capacity": "", "text": "Infanterie unique possédant Production 1 (peut produire des unités depuis le sol)."}
+      ],
+      "promissoryNote": {"name": "Stymie", "text": "Pendant la phase d'action, après qu'un autre joueur déplace des vaisseaux dans un système contenant 1 ou plusieurs de vos unités : il ne peut pas produire d'unités dans ce système ce tour-ci. Rendez cette carte au joueur Arborec à la fin du tour."}
+    },
+    {
+      "id": "barony-of-letnev",
+      "name": "The Barony of Letnev", "nameFr": "La Baronnie de Letnev",
+      "expansion": "base",
+      "color": "#8b1a1a",
+      "summary": "Faction militariste et navale qui peut dépasser ses limites de flotte (Armada) et relancer ses dés de combat spatial en dépensant des biens commerciaux. Excellente en combat spatial et en bombardement.",
+      "abilities": [
+        {"name": "Munitions Reserves", "text": "Au début de chaque round de combat spatial, vous pouvez dépenser 2 biens commerciaux ; vous pouvez alors relancer un nombre quelconque de vos dés pendant ce round."},
+        {"name": "Armada", "text": "Le nombre maximal de vaisseaux non-chasseurs que vous pouvez avoir dans chaque système est égal à 2 de plus que le nombre de jetons dans votre réserve de flotte."}
+      ],
+      "commodities": 2,
+      "startingTech": ["Antimass Deflectors", "Plasma Scoring"],
+      "startingUnits": "1 dock spatial, 1 PDS, 1 cuirassé, 1 transporteur, 1 destroyer, 3 chasseurs, 2 infanteries",
+      "homeSystem": {
+        "name": "Arc Prime",
+        "planets": [
+          {"name": "Arc Prime", "resources": 4, "influence": 0, "trait": null, "techSpecialty": null},
+          {"name": "Wren Terra", "resources": 2, "influence": 1, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Arc Secundus", "cost": "8", "combat": "5 (x2)", "move": "1", "capacity": "3", "text": "Les autres unités dans ce système perdent Bouclier planétaire. Au début de chaque round de combat spatial, réparez ce vaisseau. (Encaisser les dégâts, Bombardement 5 (x3))"},
+      "mech": {"name": "Dunlain Reaper", "text": "DÉPLOIEMENT : au début d'un round de combat terrestre, vous pouvez dépenser 2 ressources pour remplacer 1 de vos infanteries de ce combat par 1 méca. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Viscount Unlenn", "text": "Au début d'un round de combat spatial : vous pouvez épuiser cette carte et choisir 1 vaisseau du système actif ; ce vaisseau lance 1 dé supplémentaire pendant ce round."},
+        "commander": {"name": "Rear Admiral Farran", "unlock": "Avoir 5 vaisseaux non-chasseurs dans un même système.", "text": "Après qu'une de vos unités utilise Encaisser les dégâts : vous pouvez gagner 1 bien commercial."},
+        "hero": {"name": "Darktalon Treilla", "unlock": "Avoir validé 3 objectifs.", "text": "Dark Matter Affinity — ACTION : pendant ce tour, votre limite de vaisseaux non-chasseurs par système ne s'applique pas, et vos vaisseaux non-chasseurs détruits retournent dans vos renforts au lieu d'être retirés. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "L4 Disruptors", "type": "red", "prereqs": "1 rouge", "text": "Pendant une invasion, les unités ne peuvent pas utiliser Canon spatial contre vos unités."},
+        {"name": "Non-Euclidean Shielding", "type": "red", "prereqs": "2 rouge", "text": "Quand 1 de vos unités utilise Encaisser les dégâts, annulez 2 touches au lieu de 1."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "War Funding", "text": "Au début d'un combat spatial : votre adversaire relance tous ses dés lors du premier round du combat. Rendez cette carte au joueur Letnev à la fin du combat."}
+    },
+    {
+      "id": "clan-of-saar",
+      "name": "The Clan of Saar", "nameFr": "Le Clan Saar",
+      "expansion": "base",
+      "color": "#d98a2b",
+      "summary": "Faction nomade vivant dans les champs d'astéroïdes : ses chantiers spatiaux flottants (Floating Factory) se déplacent. Gagne des biens commerciaux en prenant des planètes (Scavenge) et peut valider des objectifs sans tenir son système d'origine (Nomadic).",
+      "abilities": [
+        {"name": "Scavenge", "text": "Après avoir pris le contrôle d'une planète, gagnez 1 bien commercial."},
+        {"name": "Nomadic", "text": "Vous pouvez marquer des objectifs même si vous ne contrôlez pas les planètes de votre système d'origine."}
+      ],
+      "commodities": 3,
+      "startingTech": ["Antimass Deflectors"],
+      "startingUnits": "2 docks spatiaux (Floating Factory I), 1 PDS, 2 transporteurs, 2 croiseurs, 1 cuirassé, 2 chasseurs, 4 infanteries",
+      "homeSystem": {
+        "name": "Lisis",
+        "planets": [
+          {"name": "Lisis II", "resources": 1, "influence": 0, "trait": null, "techSpecialty": null},
+          {"name": "Ragh", "resources": 2, "influence": 1, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Son of Ragh", "cost": "8", "combat": "5 (x2)", "move": "1", "capacity": "3", "text": "Vaisseau amiral doté d'un puissant tir antichasseurs. (Encaisser les dégâts, Barrage anti-chasseur 6 (x4))"},
+      "mech": {"name": "Scavenger Zeta", "text": "DÉPLOIEMENT : après avoir pris le contrôle d'une planète, vous pouvez dépenser 1 bien commercial pour y placer 1 méca. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Captain Mendosa", "text": "Quand un joueur active un système : vous pouvez épuiser cette carte pour augmenter la valeur de mouvement de 1 vaisseau de ce joueur jusqu'à égaler la plus haute valeur de mouvement présente sur le plateau."},
+        "commander": {"name": "Rowl Sarring", "unlock": "Avoir 3 docks spatiaux sur le plateau.", "text": "Quand vous produisez des chasseurs ou de l'infanterie : vous pouvez placer chacune de ces unités sur n'importe lequel de vos docks spatiaux non bloqués."},
+        "hero": {"name": "Gurno Aggero", "unlock": "Avoir validé 3 objectifs.", "text": "Armageddon Relay — ACTION : choisissez 1 système adjacent à 1 de vos docks spatiaux ; détruisez toutes les infanteries et tous les chasseurs des autres joueurs dans ce système. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Chaos Mapping", "type": "blue", "prereqs": "1 bleu", "text": "Les autres joueurs ne peuvent pas activer un champ d'astéroïdes contenant vos vaisseaux. Au début de votre tour, vous pouvez produire 1 unité dans un système contenant 1 de vos unités ayant Production."},
+        {"name": "Floating Factory II", "type": "unit", "prereqs": "2 jaune", "text": "Amélioration du Floating Factory : Mouvement 2, Capacité 5, Production 7."}
+      ],
+      "factionUnits": [
+        {"name": "Floating Factory I", "type": "Space Dock", "cost": "", "combat": "", "move": "0", "capacity": "4", "text": "Chantier spatial placé dans l'espace (Production 5, Capacité 4). Compte comme un vaisseau, peut être bloqué/détruit ; détruit s'il est bloqué."}
+      ],
+      "promissoryNote": {"name": "Ragh's Call", "text": "Après qu'un joueur engage des forces terrestres pour débarquer sur une planète : retirez toutes les forces terrestres Saar de cette planète et placez-les sur une planète contrôlée par le joueur Saar. Puis rendez cette carte au joueur Saar."}
+    },
+    {
+      "id": "embers-of-muaat",
+      "name": "The Embers of Muaat", "nameFr": "Les Cendres de Muaat",
+      "expansion": "base",
+      "color": "#c0392b",
+      "summary": "Faction volcanique qui commence avec un Vaisseau de guerre (Soleil de Guerre) et la capacité d'en construire. Forge des unités à partir de ses Soleils de Guerre (Star Forge) et traverse les supernovas. Démarrage lent mais puissance militaire écrasante en fin de partie.",
+      "abilities": [
+        {"name": "Star Forge", "text": "ACTION : dépensez 1 pion de votre réserve stratégique pour placer soit 2 chasseurs, soit 1 destroyer de vos renforts dans un système contenant 1 ou plusieurs de vos Soleils de Guerre."},
+        {"name": "Gashlai Physiology", "text": "Vos vaisseaux peuvent se déplacer à travers les supernovas."}
+      ],
+      "commodities": 4,
+      "startingTech": ["Plasma Scoring"],
+      "startingUnits": "1 dock spatial, 1 Soleil de Guerre, 1 transporteur, 2 chasseurs, 4 infanteries",
+      "homeSystem": {
+        "name": "Muaat",
+        "planets": [
+          {"name": "Muaat", "resources": 4, "influence": 1, "trait": "hazardous", "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "The Inferno", "cost": "8", "combat": "5 (x2)", "move": "1", "capacity": "3", "text": "ACTION : dépensez 1 pion de votre réserve stratégique pour placer 1 croiseur dans ce système. (Encaisser les dégâts)"},
+      "mech": {"name": "Ember Colossus", "text": "Quand vous utilisez Star Forge dans ce système ou un système adjacent, vous pouvez y placer 1 infanterie de vos renforts. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Umbat", "text": "ACTION : épuisez cette carte et choisissez un joueur ; ce joueur peut produire jusqu'à 2 unités coûtant chacune 4 ou moins, dans un système contenant 1 de ses Soleils de Guerre ou son vaisseau amiral."},
+        "commander": {"name": "Magmus", "unlock": "Produire un Soleil de Guerre.", "text": "Après que vous dépensez un pion de votre réserve stratégique : vous pouvez gagner 1 bien commercial."},
+        "hero": {"name": "Adjudicator Ba'al", "unlock": "Avoir validé 3 objectifs.", "text": "Starscourge — ACTION : après avoir déplacé un Soleil de Guerre dans un système non-origine autre que Mecatol Rex : vous pouvez détruire toutes les unités des autres joueurs dans ce système et remplacer cette tuile par la tuile supernova de Muaat. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Magmus Reactor", "type": "red", "prereqs": "2 rouge", "text": "Vos vaisseaux peuvent traverser les supernovas. Après que vos unités utilisent Production dans un système contenant un Soleil de Guerre ou adjacent à une supernova, placez 1 pion de commandement de vos renforts dans votre réserve stratégique."},
+        {"name": "Prototype Soleil de Guerre II", "type": "unit", "prereqs": "améliore Prototype Soleil de Guerre I (3 rouge)", "text": "Amélioration du Soleil de Guerre de Muaat : Coût 10, Combat 3 (x3), Mouvement 3, Capacité 6 (Encaisser les dégâts, Bombardement 3 (x3) ; les autres unités du système perdent Bouclier planétaire)."}
+      ],
+      "factionUnits": [
+        {"name": "Prototype Soleil de Guerre I", "type": "Soleil de Guerre", "cost": "12", "combat": "3 (x3)", "move": "1", "capacity": "6", "text": "Soleil de Guerre unique de Muaat (Mouvement 1). Encaisser les dégâts, Bombardement 3 (x3) ; les autres unités du système perdent Bouclier planétaire. Constructible dès le début sans la technologie Soleil de Guerre."}
+      ],
+      "promissoryNote": {"name": "Fires of the Gashlai", "text": "Quand vous recherchez une technologie : vous pouvez gagner la carte d'amélioration du Soleil de Guerre (sans payer ses prérequis), même si vous n'êtes pas Muaat. Rendez cette carte au joueur Muaat lorsque vous obtenez votre amélioration de Soleil de Guerre."}
+    },
+    {
+      "id": "the-emirates-of-hacan",
+      "name": "The Emirates of Hacan", "nameFr": "Les Émirats d'Hacan",
+      "expansion": "base",
+      "color": "#f5a623",
+      "summary": "Faction marchande et diplomatique par excellence : elle prospère grâce au commerce, aux échanges et aux biens commerciaux, et peut acheter sa victoire en finançant ses voisins.",
+      "abilities": [
+        {"name": "Masters of Trade", "text": "Vous n'avez pas besoin de dépenser un pion de commandement pour résoudre la compétence secondaire de la carte de stratégie Commerce."},
+        {"name": "Guild Ships", "text": "Vous pouvez négocier des transactions avec des joueurs qui ne sont pas vos voisins."},
+        {"name": "Arbiters", "text": "Lorsque vous négociez une transaction, des cartes Action peuvent y être échangées."}
+      ],
+      "commodities": 6,
+      "startingTech": ["Antimass Deflectors", "Sarween Tools"],
+      "startingUnits": "2 docks spatiaux, 1 PDS, 2 transporteurs, 1 croiseur, 1 destroyer, 4 chasseurs, 4 infanteries",
+      "homeSystem": {
+        "name": "Hacan",
+        "planets": [
+          {"name": "Arretze", "resources": 2, "influence": 0, "trait": "industrial", "techSpecialty": null},
+          {"name": "Hercant", "resources": 1, "influence": 1, "trait": "cultural", "techSpecialty": null},
+          {"name": "Kamdorn", "resources": 0, "influence": 1, "trait": "hazardous", "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Wrath of Kenara", "cost": "8", "combat": "7", "move": "1", "capacity": "3", "text": "Après avoir lancé un dé lors d'un combat spatial dans ce système, vous pouvez dépenser 1 bien commercial pour appliquer +1 au résultat. (Encaisser les dégâts)"},
+      "mech": {"name": "Pride of Kenara", "text": "Pendant un combat terrestre sur cette planète, avant d'attribuer les touches, vous pouvez dépenser 1 bien commercial pour produire 1 touche à attribuer aux forces terrestres adverses. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Carth of Golden Sands", "text": "Vous pouvez épuiser cette carte pour gagner 2 commodités, ou pour réapprovisionner les commodités d'un autre joueur."},
+        "commander": {"name": "Gila the Silvertongue", "unlock": "Posséder 10 biens commerciaux.", "text": "Pendant la phase de Projet, vous pouvez dépenser n'importe quel nombre de biens commerciaux pour lancer 2 votes supplémentaires par bien commercial dépensé."},
+        "hero": {"name": "Harrugh Gefhara", "unlock": "Avoir validé 3 objectifs.", "text": "ACTION : pendant ce tour, quand vos unités utilisent Production, réduisez de 1 bien commercial le coût combiné des unités produites par bien commercial dépensé (jamais sous 0). Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Production Biomes", "type": "green", "prereqs": "2 vert", "text": "ACTION : épuisez cette carte et dépensez 1 pion de votre réserve stratégique pour gagner 4 biens commerciaux et choisir 1 autre joueur ; ce joueur gagne 2 biens commerciaux."},
+        {"name": "Quantum Datahub Node", "type": "yellow", "prereqs": "3 jaune", "text": "ACTION : dépensez 1 pion de votre réserve stratégique et donnez 3 de vos biens commerciaux à un autre joueur. Si vous le faites, donnez-lui 1 de vos cartes de stratégie et prenez-en 1 des siennes."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Trade Convoys", "text": "Posez cette carte face visible. Tant qu'elle est dans votre zone de jeu, vous pouvez négocier des transactions avec le joueur Hacan même s'il n'est pas votre voisin. S'il vous donne cette carte, placez-la dans votre zone de jeu."}
+    },
+    {
+      "id": "the-federation-of-sol",
+      "name": "The Federation of Sol", "nameFr": "La Fédération de Sol",
+      "expansion": "base",
+      "color": "#3a7bd5",
+      "summary": "Faction humaine polyvalente et résiliente, spécialisée dans l'infanterie : elle produit des forces terrestres en masse et gagne des pions de commandement supplémentaires pour une économie d'action généreuse.",
+      "abilities": [
+        {"name": "Orbital Drop", "text": "ACTION : dépensez 1 pion de votre réserve stratégique pour placer 2 infanteries de vos renforts sur 1 planète que vous contrôlez."},
+        {"name": "Versatile", "text": "Lorsque vous gagnez des pions de commandement pendant la phase de statut, gagnez 1 jeton supplémentaire."}
+      ],
+      "commodities": 4,
+      "startingTech": ["Neural Motivator", "Antimass Deflectors"],
+      "startingUnits": "2 docks spatiaux, 1 PDS, 2 transporteurs, 1 croiseur, 1 destroyer, 3 chasseurs, 5 infanteries",
+      "homeSystem": {
+        "name": "Jord",
+        "planets": [
+          {"name": "Jord", "resources": 4, "influence": 2, "trait": "cultural", "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Genesis", "cost": "8", "combat": "5 (x2)", "move": "1", "capacity": "12", "text": "À la fin de la phase de statut, placez 1 infanterie de vos renforts dans la zone spatiale de ce système. (Encaisser les dégâts)"},
+      "mech": {"name": "ZS Thunderbolt M2", "text": "Après avoir utilisé Orbital Drop, vous pouvez dépenser 3 ressources pour placer 1 méca de vos renforts sur cette planète. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Evelyn Delouis", "text": "Au début d'un round de combat terrestre, vous pouvez épuiser cette carte pour choisir 1 force terrestre du système actif ; elle lance 1 dé supplémentaire pendant ce round."},
+        "commander": {"name": "Claire Gibson", "unlock": "Contrôler des planètes totalisant au moins 12 ressources.", "text": "Au début d'un combat terrestre sur une planète que vous contrôlez, vous pouvez y placer 1 infanterie de vos renforts."},
+        "hero": {"name": "Jace X, 4th Air Legion", "unlock": "Avoir validé 3 objectifs.", "text": "ACTION : retirez chacun de vos pions de commandement du plateau et remettez-les dans vos renforts. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Advanced Carrier II", "type": "unit", "prereqs": "améliore le Carrier", "text": "Coût 3, Combat 9, Mouvement 2, Capacité 8, Encaisser les dégâts."},
+        {"name": "Spec Ops II", "type": "unit", "prereqs": "améliore l'infanterie", "text": "Coût 1 (produit 2 par jeton), Combat 6. Après destruction, lancez 1 dé ; sur 6+, replacez l'unité sur cette carte. Au début de votre tour, replacez chaque unité de cette carte sur une planète contenant un de vos docks spatiaux."}
+      ],
+      "factionUnits": [
+        {"name": "Spec Ops I", "type": "Infantry", "cost": "1", "combat": "7", "move": "", "capacity": "", "text": "Infanterie de faction (remplace l'infanterie standard), meilleur combat."},
+        {"name": "Advanced Carrier I", "type": "Carrier", "cost": "3", "combat": "9", "move": "1", "capacity": "6", "text": "Transporteur de faction (remplace le Carrier standard) avec Encaisser les dégâts."}
+      ],
+      "promissoryNote": {"name": "Military Support", "text": "Au début du tour du joueur Sol : retirez 1 pion de sa réserve stratégique (si possible) et remettez-le dans ses renforts. Puis vous pouvez placer 2 infanteries de vos renforts sur n'importe quelle planète que vous contrôlez. Rendez ensuite cette carte au joueur Sol."}
+    },
+    {
+      "id": "the-ghosts-of-creuss",
+      "name": "The Ghosts of Creuss", "nameFr": "Les Fantômes de Creuss",
+      "expansion": "base",
+      "color": "#50c8e8",
+      "summary": "Faction de mobilité extrême basée sur les trous de ver : elle parcourt la galaxie via un réseau de wormholes qu'elle déploie et manipule, frappant là où on ne l'attend pas.",
+      "abilities": [
+        {"name": "Quantum Entanglement", "text": "Vous traitez tous les systèmes contenant un trou de ver alpha ou bêta comme adjacents les uns aux autres. Les effets de jeu ne peuvent pas vous empêcher d'utiliser cette capacité."},
+        {"name": "Slipstream", "text": "Pendant vos actions tactiques, appliquez +1 au mouvement de chacun de vos vaisseaux qui commence son déplacement dans votre système d'origine ou dans un système contenant un trou de ver alpha ou bêta."},
+        {"name": "Creuss Gate", "text": "Lors de la mise en place, placez la Creuss Gate (tuile 17) à l'emplacement de votre système d'origine. La Creuss Gate n'est pas un système d'origine. Placez ensuite votre système d'origine (tuile 51) dans votre zone de jeu."}
+      ],
+      "commodities": 4,
+      "startingTech": ["Gravity Drive"],
+      "startingUnits": "1 dock spatial, 2 transporteurs, 2 destroyers, 2 chasseurs, 4 infanteries",
+      "homeSystem": {
+        "name": "Creuss",
+        "planets": [
+          {"name": "Creuss", "resources": 4, "influence": 2, "trait": "cultural", "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Hil Colish", "cost": "8", "combat": "5", "move": "1", "capacity": "3", "text": "Le système de ce vaisseau contient un trou de ver delta. Pendant le mouvement, ce vaisseau peut se déplacer avant ou après vos autres vaisseaux. (Encaisser les dégâts)"},
+      "mech": {"name": "Icarus Drive", "text": "Après qu'un joueur active un système, vous pouvez retirer cette unité du plateau pour placer ou déplacer un jeton de trou de ver Creuss dans ce système. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Emissary Taivra", "text": "Après qu'un joueur active un système contenant un trou de ver non-delta, vous pouvez épuiser cette carte : ce système est adjacent à tous les autres systèmes contenant un trou de ver pendant cette action tactique."},
+        "commander": {"name": "Sai Seravus", "unlock": "Avoir des unités dans 3 systèmes contenant des trous de ver alpha ou bêta.", "text": "Après le mouvement de vos vaisseaux : pour chaque vaisseau ayant une capacité qui a traversé 1 ou plusieurs trous de ver, vous pouvez placer 1 chasseur de vos renforts avec ce vaisseau si vous avez de la capacité inutilisée."},
+        "hero": {"name": "Riftwalker Meian", "unlock": "Avoir validé 3 objectifs.", "text": "ACTION : échangez les positions de 2 systèmes contenant des trous de ver ou vos unités, autres que le système Creuss et le Wormhole Nexus. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Wormhole Generator", "type": "yellow", "prereqs": "2 bleu", "text": "ACTION : épuisez cette carte pour placer ou déplacer un jeton de trou de ver Creuss dans un système contenant une planète que vous contrôlez, ou dans un système non-origine sans vaisseaux adverses."},
+        {"name": "Dimensional Splicer", "type": "red", "prereqs": "1 rouge", "text": "Au début d'un combat spatial dans un système contenant un trou de ver et vos vaisseaux, vous pouvez produire 1 touche à attribuer à un vaisseau adverse."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Creuss Iff", "text": "Au début de votre tour : placez ou déplacez un jeton de trou de ver Creuss dans un système contenant une planète que vous contrôlez, ou dans un système non-origine sans vaisseaux adverses. Puis rendez cette carte au joueur Creuss."}
+    },
+    {
+      "id": "the-l1z1x-mindnet",
+      "name": "The L1Z1X Mindnet", "nameFr": "Le Mindnet L1Z1X",
+      "expansion": "base",
+      "color": "#2e4a8a",
+      "summary": "Faction militariste cybernétique centrée sur une puissante flotte de cuirassés et un bombardement implacable : elle écrase les forces ennemies et assimile les structures des planètes conquises.",
+      "abilities": [
+        {"name": "Assimilate", "text": "Lorsque vous prenez le contrôle d'une planète, remplacez chaque PDS et chaque dock spatial présent par une unité correspondante de vos renforts."},
+        {"name": "Harrow", "text": "À la fin de chaque round de combat terrestre, vos vaisseaux du système actif peuvent utiliser leur capacité Bombardement contre les forces terrestres adverses de la planète."}
+      ],
+      "commodities": 2,
+      "startingTech": ["Neural Motivator", "Plasma Scoring"],
+      "startingUnits": "1 dock spatial, 1 PDS, 1 transporteur, 1 cuirassé, 3 chasseurs, 5 infanteries",
+      "homeSystem": {
+        "name": "[0.0.0]",
+        "planets": [
+          {"name": "[0.0.0]", "resources": 5, "influence": 0, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "[0.0.1]", "cost": "8", "combat": "5 (x2)", "move": "1", "capacity": "5", "text": "Pendant un combat spatial, les touches produites par ce vaisseau et par vos cuirassés dans ce système doivent être attribuées à des vaisseaux non-chasseurs si possible. (Encaisser les dégâts)"},
+      "mech": {"name": "Annihilator", "text": "Tant qu'il ne participe pas à un combat terrestre, ce méca peut utiliser sa capacité Bombardement contre les planètes de son système comme s'il était un vaisseau. (Bombardement 8, Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "I48S", "text": "Après qu'un joueur active un système, vous pouvez épuiser cette carte pour lui permettre de remplacer 1 de ses infanteries du système actif par 1 méca de ses renforts."},
+        "commander": {"name": "2RAM", "unlock": "Avoir 4 cuirassés sur le plateau.", "text": "Les unités possédant Bouclier planétaire ne vous empêchent pas d'utiliser Bombardement."},
+        "hero": {"name": "The Helmsman", "unlock": "Avoir validé 3 objectifs.", "text": "ACTION : choisissez 1 système sans vaisseaux adverses ; vous pouvez y déplacer votre vaisseau amiral et n'importe quel nombre de vos cuirassés depuis d'autres systèmes. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Super-Dreadnought II", "type": "unit", "prereqs": "améliore le Cuirassé", "text": "Coût 4, Combat 4, Mouvement 2, Capacité 2, Bombardement 4, Encaisser les dégâts. Les cartes Tir direct ne sont plus efficaces contre ce type de vaisseau."},
+        {"name": "Inheritance Systems", "type": "yellow", "prereqs": "Aucun", "text": "Vous pouvez épuiser cette carte et dépenser 2 ressources lorsque vous recherchez une technologie : ignorez tous ses prérequis."}
+      ],
+      "factionUnits": [
+        {"name": "Super-Dreadnought I", "type": "Dreadnought", "cost": "4", "combat": "5", "move": "1", "capacity": "2", "text": "Cuirassé de faction (remplace le standard). Bombardement 5, Encaisser les dégâts."}
+      ],
+      "promissoryNote": {"name": "Cybernetic Enhancements", "text": "Lorsque vous gagnez des pions de commandement pendant la phase de statut : gagnez 1 jeton supplémentaire. Puis rendez cette carte au joueur L1Z1X."}
+    },
+    {
+      "id": "the-mentak-coalition",
+      "name": "The Mentak Coalition", "nameFr": "La Coalition Mentak",
+      "expansion": "base",
+      "color": "#e8731f",
+      "summary": "Faction de pirates agressive et opportuniste qui pille les biens de ses voisins et frappe en premier grâce à des embuscades navales redoutables.",
+      "abilities": [
+        {"name": "Ambush", "text": "Au début d'un combat spatial, vous pouvez lancer 1 dé pour un maximum de 2 de vos croiseurs ou destroyers du système. Pour chaque résultat ≥ à la valeur de combat du vaisseau, produisez 1 touche que votre adversaire doit attribuer à l'un de ses vaisseaux."},
+        {"name": "Pillage", "text": "Après qu'un voisin gagne des biens commerciaux ou résout une transaction, s'il possède 3 biens commerciaux ou plus, vous pouvez lui prendre 1 bien commercial ou 1 commodité."}
+      ],
+      "commodities": 2,
+      "startingTech": ["Sarween Tools", "Plasma Scoring"],
+      "startingUnits": "4 croiseurs, 3 infanteries, 1 dock spatial, 1 PDS",
+      "homeSystem": {
+        "name": "Moll Primus",
+        "planets": [
+          {"name": "Moll Primus", "resources": 4, "influence": 1, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Fourth Moon", "cost": "8", "combat": "7", "move": "1", "capacity": "3", "text": "Les vaisseaux des autres joueurs présents dans ce système ne peuvent pas utiliser Encaisser les dégâts."},
+      "mech": {"name": "Moll Terminus", "text": "Les forces terrestres des autres joueurs présentes sur cette planète ne peuvent pas utiliser Encaisser les dégâts."},
+      "leaders": {
+        "agent": {"name": "Suffi An", "text": "Après que votre capacité Pillage est utilisée contre un autre joueur, vous pouvez épuiser cette carte pour piocher 1 carte Action ; ce joueur pioche aussi 1 carte Action."},
+        "commander": {"name": "S'ula Mentarion", "unlock": "Avoir 4 croiseurs sur le plateau.", "text": "Après avoir gagné un combat spatial, vous pouvez forcer votre adversaire à vous donner 1 billet à ordre de sa main."},
+        "hero": {"name": "Ipswitch, Loose Cannon", "unlock": "Avoir validé 3 objectifs.", "text": "Au début d'un combat spatial auquel vous participez, vous pouvez purger cette carte ; pour chaque vaisseau adverse détruit durant ce combat, placez 1 vaisseau de ce type de vos renforts dans le système actif."}
+      },
+      "factionTech": [
+        {"name": "Salvage Operations", "type": "yellow", "prereqs": "2 jaune", "text": "Après avoir gagné ou perdu un combat spatial, gagnez 1 bien commercial ; si vous avez gagné, vous pouvez aussi produire 1 vaisseau dans ce système, de tout type ayant été détruit durant le combat."},
+        {"name": "Mirror Computing", "type": "yellow", "prereqs": "2 jaune", "text": "Lorsque vous dépensez des biens commerciaux, chacun vaut 2 ressources ou 2 influences au lieu de 1."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Promise of Protection", "text": "ACTION : placez cette carte face visible dans votre zone de jeu. Tant qu'elle y est, le joueur Mentak ne peut pas utiliser Pillage contre vous. Si vous activez un système contenant des unités Mentak, rendez cette carte au joueur Mentak."}
+    },
+    {
+      "id": "the-naalu-collective",
+      "name": "The Naalu Collective", "nameFr": "Le Collectif Naalu",
+      "expansion": "base",
+      "color": "#d4c14a",
+      "summary": "Faction télépathe qui contrôle l'ordre d'initiative en étant systématiquement première à jouer, et déploie des nuées de chasseurs hybrides exceptionnellement puissants.",
+      "abilities": [
+        {"name": "Telepathic", "text": "À la fin de la phase de stratégie, placez le jeton « 0 » Naalu sur votre carte de stratégie ; vous êtes premier dans l'ordre d'initiative."},
+        {"name": "Foresight", "text": "Après qu'un autre joueur déplace des vaisseaux dans un système contenant vos vaisseaux, vous pouvez placer 1 pion de votre réserve stratégique dans un système adjacent sans vaisseaux adverses ; déplacez-y vos vaisseaux du système actif."}
+      ],
+      "commodities": 3,
+      "startingTech": ["Neural Motivator", "Sarween Tools"],
+      "startingUnits": "1 transporteur, 3 chasseurs (Hybrid Crystal Fighter), 1 destroyer, 1 croiseur, 4 infanteries, 1 dock spatial, 1 PDS",
+      "homeSystem": {
+        "name": "Maaluuk/Druua",
+        "planets": [
+          {"name": "Maaluuk", "resources": 0, "influence": 2, "trait": null, "techSpecialty": null},
+          {"name": "Druua", "resources": 3, "influence": 1, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Matriarch", "cost": "8", "combat": "9", "move": "1", "capacity": "6", "text": "Durant une invasion dans ce système, vous pouvez engager des chasseurs sur les planètes comme s'il s'agissait de forces terrestres. Après le combat, replacez ces unités dans la zone spatiale."},
+      "mech": {"name": "Iconoclast", "text": "Les autres joueurs ne peuvent pas utiliser le Barrage anti-chasseur contre vos unités dans ce système."},
+      "leaders": {
+        "agent": {"name": "Z'eu", "text": "Après qu'un projet est révélé, vous pouvez épuiser cette carte pour regarder la carte du dessus du paquet de projets ; vous pouvez ensuite la montrer aux autres joueurs."},
+        "commander": {"name": "M'aban", "unlock": "Avoir 6 chasseurs ou plus sur le plateau.", "text": "Lorsque vos unités utilisent Production, elles peuvent produire 1 chasseur supplémentaire sans dépenser de ressources ; il ne compte pas dans la limite de production."},
+        "hero": {"name": "The Oracle", "unlock": "Avoir validé 3 objectifs.", "text": "À la fin de la phase de statut : forcez chaque autre joueur à vous donner Gift of Prescience ou 1 billet à ordre de sa main de son choix. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Hybrid Crystal Fighter II", "type": "unit", "prereqs": "1 vert", "text": "Amélioration du chasseur : Coût 1 (x2), Combat 7, Mouvement 2. Peut se déplacer sans être transporté. Les chasseurs excédentaires comptent comme ½ vaisseau dans votre réserve de flotte."},
+        {"name": "Neuroglaive", "type": "green", "prereqs": "3 vert", "text": "Après qu'un autre joueur active un système contenant vos vaisseaux, ce joueur retire 1 pion de sa réserve de flotte et le remet dans ses renforts."}
+      ],
+      "factionUnits": [
+        {"name": "Hybrid Crystal Fighter I", "type": "Fighter", "cost": "1 (x2)", "combat": "8", "move": "0", "capacity": "0", "text": "Chasseur Naalu de base, supérieur au standard (combat 8 au lieu de 9)."}
+      ],
+      "promissoryNote": {"name": "Gift of Prescience", "text": "À la fin de la phase de stratégie : placez cette carte face visible et le jeton « 0 » Naalu sur votre carte de stratégie ; vous êtes premier dans l'ordre d'initiative. Le joueur Naalu ne peut pas utiliser Telepathic ce round. Rendez la carte à la fin de la phase de statut."}
+    },
+    {
+      "id": "the-nekro-virus",
+      "name": "The Nekro Virus", "nameFr": "Le Virus Nekro",
+      "expansion": "base",
+      "color": "#b21f1f",
+      "summary": "Faction qui ne peut ni voter ni rechercher de technologie, mais vole celles de ses adversaires en les tuant au combat ou en prédisant les votes, et transforme la recherche en pions de commandement.",
+      "abilities": [
+        {"name": "Galactic Threat", "text": "Vous ne pouvez pas voter. Une fois par phase de Projet, après qu'un projet est révélé, vous pouvez prédire à voix haute son résultat. Si votre prédiction est correcte, gagnez 1 technologie possédée par un joueur ayant voté comme prédit."},
+        {"name": "Technological Singularity", "text": "Une fois par combat, après qu'une unité adverse est détruite, vous pouvez gagner 1 technologie possédée par ce joueur."},
+        {"name": "Propagation", "text": "Vous ne pouvez pas rechercher de technologie. Lorsque vous devriez en rechercher une, gagnez à la place 3 pions de commandement."}
+      ],
+      "commodities": 3,
+      "startingTech": ["Daxcive Animators"],
+      "startingUnits": "2 cuirassés, 1 transporteur, 1 dock spatial, 1 PDS, 4 chasseurs, 2 infanteries (et 1 pion de commandement supplémentaire dans la réserve de flotte au début)",
+      "homeSystem": {
+        "name": "Mordai II",
+        "planets": [
+          {"name": "Mordai II", "resources": 4, "influence": 0, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "The Alastor", "cost": "8", "combat": "9", "move": "1", "capacity": "3", "text": "Au début d'un combat spatial, choisissez n'importe quel nombre de vos forces terrestres du système pour participer au combat comme des vaisseaux. Après le combat, replacez-les sur une planète que vous contrôlez dans ce système (détruisez celles qui ne peuvent l'être)."},
+      "mech": {"name": "Mordred", "text": "Durant le combat, si vous affrontez un joueur ayant un jeton « X » ou « Y » sur l'une de ses technologies, appliquez +2 aux résultats de combat de cette unité."},
+      "leaders": {
+        "agent": {"name": "Nekro Malleon", "text": "Épuisez cette carte pour choisir un joueur ; il peut soit défausser 1 carte Action, soit dépenser 1 pion de commandement, pour gagner 2 biens commerciaux."},
+        "commander": {"name": "Nekro Acidos", "unlock": "Posséder 3 technologies (les jetons d'assimilation « X » et « Y » comptent).", "text": "Après avoir gagné une technologie, piochez 1 carte Action."},
+        "hero": {"name": "UNIT.DSGN.FLAYESH", "unlock": "Avoir validé 3 objectifs.", "text": "ACTION : détruisez toutes les forces terrestres adverses sur une planète à spécialité technologique dans un système contenant vos unités. Gagnez des biens commerciaux égaux à la somme ressources + influence de cette planète, et gagnez 1 technologie correspondant à sa spécialité. Purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Valefar Assimilator X", "type": "unit", "prereqs": "technologie de départ", "text": "Quand vous gagneriez une technologie de faction d'un autre joueur, placez plutôt le jeton « X » sur cette technologie ; cette carte gagne alors son texte. Si « X » est déjà placé, déplacez-le."},
+        {"name": "Valefar Assimilator Y", "type": "unit", "prereqs": "technologie de départ", "text": "Quand vous gagneriez une technologie de faction d'un autre joueur, placez plutôt le jeton « Y » sur cette technologie ; cette carte gagne alors son texte. Si « Y » est déjà placé, déplacez-le."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Antivirus", "text": "Au début d'un combat : placez cette carte face visible dans votre zone de jeu. Tant qu'elle y est, le joueur Nekro ne peut pas utiliser Technological Singularity contre vous. Si vous activez un système contenant des unités Nekro, rendez la carte."}
+    },
+    {
+      "id": "sardakk-norr",
+      "name": "Sardakk N'orr", "nameFr": "Les Sardakk N'orr",
+      "expansion": "base",
+      "color": "#555555",
+      "summary": "Faction guerrière dépourvue de technologie de départ mais dont toutes les unités frappent plus fort grâce à un bonus permanent de combat. Mise sur la puissance militaire brute.",
+      "abilities": [
+        {"name": "Unrelenting", "text": "Appliquez +1 au résultat de chacun des jets de combat de vos unités."}
+      ],
+      "commodities": 3,
+      "startingTech": [],
+      "startingUnits": "2 transporteurs, 1 cuirassé, 1 PDS, 5 infanteries, 1 dock spatial",
+      "homeSystem": {
+        "name": "Tren'lak/Quinarra",
+        "planets": [
+          {"name": "Tren'lak", "resources": 1, "influence": 0, "trait": null, "techSpecialty": null},
+          {"name": "Quinarra", "resources": 3, "influence": 1, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "C'morran N'orr", "cost": "8", "combat": "6", "move": "1", "capacity": "3", "text": "Appliquez +1 au résultat de chacun des jets de combat de vos autres vaisseaux présents dans ce système."},
+      "mech": {"name": "Valkyrie Exoskeleton", "text": "Après que cette unité utilise Encaisser les dégâts durant un combat terrestre, elle produit 1 touche contre les forces terrestres adverses de cette planète."},
+      "leaders": {
+        "agent": {"name": "T'ro", "text": "À la fin de l'action tactique d'un joueur, épuisez cette carte : ce joueur peut placer 2 infanteries de ses renforts sur une planète qu'il contrôle dans le système actif."},
+        "commander": {"name": "G'hom Sek'kus", "unlock": "Contrôler 5 planètes dans des systèmes hors de votre système d'origine.", "text": "Durant l'étape « Engager les forces terrestres », vous pouvez engager jusqu'à 1 force terrestre depuis chaque planète du système actif et de chaque système adjacent sans l'un de vos pions de commandement."},
+        "hero": {"name": "Sh'val, Harbinger", "unlock": "Avoir validé 3 objectifs.", "text": "ACTION : activez un système contenant des forces ennemies et déplacez-y des vaisseaux ; passez directement à l'étape « Engager les forces terrestres » (sautez combat spatial et bombardement). Après l'invasion, purgez cette carte et renvoyez vos vaisseaux dans vos renforts."}
+      },
+      "factionTech": [
+        {"name": "Exotrireme II", "type": "unit", "prereqs": "2 jaune", "text": "Amélioration du cuirassé. Coût 4, Combat 5, Mouvement 2, Capacité 1. Encaisser les dégâts, Bombardement 4 (x2). Insensible aux cartes Tir direct. À la fin d'une action tactique, vous pouvez détruire cette unité pour détruire jusqu'à 2 vaisseaux adverses dans ce système."},
+        {"name": "Valkyrie Particle Weave", "type": "red", "prereqs": "2 rouge", "text": "Après vos jets de combat terrestre, si votre adversaire a produit 1 touche ou plus, vous produisez 1 touche supplémentaire."}
+      ],
+      "factionUnits": [
+        {"name": "Exotrireme I", "type": "Dreadnought", "cost": "4", "combat": "5", "move": "1", "capacity": "1", "text": "Cuirassé de base Sardakk. Encaisser les dégâts, Bombardement 4 (x2)."}
+      ],
+      "promissoryNote": {"name": "Tekklar Legion", "text": "Au début d'une invasion : appliquez +1 aux jets de combat de vos unités durant ce combat terrestre. Si votre adversaire est le joueur Sardakk N'orr, appliquez plutôt -1 à ses jets de combat."}
+    },
+    {
+      "id": "universities-of-jol-nar",
+      "name": "The Universities of Jol-Nar", "nameFr": "Les Universités de Jol-Nar",
+      "expansion": "base",
+      "color": "#3aa0d0",
+      "summary": "Faction technologique par excellence : elle recherche plus vite et moins cher que quiconque, au prix d'unités fragiles qui combattent mal. On gagne en accumulant un avantage scientifique écrasant.",
+      "abilities": [
+        {"name": "Fragile", "text": "Appliquez -1 au résultat de chacun des jets de combat de vos unités."},
+        {"name": "Brilliant", "text": "Lorsque vous dépensez un jeton pour la compétence secondaire de la carte Technologie, vous pouvez résoudre la compétence primaire à la place."},
+        {"name": "Analytical", "text": "Lorsque vous recherchez une technologie qui n'est pas une amélioration d'unité, vous pouvez ignorer 1 prérequis."}
+      ],
+      "commodities": 4,
+      "startingTech": ["Neural Motivator", "Antimass Deflectors", "Sarween Tools", "Plasma Scoring"],
+      "startingUnits": "1 cuirassé, 2 transporteurs, 1 chasseur, 2 infanteries, 2 PDS, 1 dock spatial",
+      "homeSystem": {
+        "name": "Jol-Nar",
+        "planets": [
+          {"name": "Jol", "resources": 1, "influence": 2, "trait": "cultural", "techSpecialty": null},
+          {"name": "Nar", "resources": 2, "influence": 3, "trait": "cultural", "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "J.N.S. Hylarim", "cost": "8", "combat": "6", "move": "1", "capacity": "3", "text": "Encaisser les dégâts. Lors d'un jet de combat de ce vaisseau, chaque résultat de 9 ou 10 (avant modificateurs) produit 2 touches supplémentaires."},
+      "mech": {"name": "Shield Paling", "text": "Vos infanteries sur cette planète ne sont pas affectées par votre capacité Fragile. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Doctor Sucaban", "text": "Lorsqu'un joueur dépense des ressources pour une recherche : vous pouvez épuiser cette carte pour lui permettre de retirer du plateau autant de ses infanteries qu'il veut ; chaque unité retirée réduit de 1 les ressources dépensées."},
+        "commander": {"name": "Ta Zern", "unlock": "Posséder 8 technologies.", "text": "Après avoir lancé les dés pour une capacité d'unité (canon spatial, bombardement, barrage anti-chasseur, production) : vous pouvez relancer n'importe lequel de ces dés."},
+        "hero": {"name": "Rin, the Master's Legacy", "unlock": "Avoir validé 3 objectifs.", "text": "Pour chaque technologie que vous possédez qui n'est pas une amélioration d'unité, vous pouvez la remplacer par n'importe quelle technologie de la même couleur dans la pioche. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Spatial Conduit Cylinder", "type": "blue", "prereqs": "2 bleu", "text": "Vous pouvez épuiser cette carte après avoir activé un système contenant vos unités ; ce système est adjacent à tous les autres systèmes contenant vos unités durant cette activation."},
+        {"name": "E-Res Siphons", "type": "yellow", "prereqs": "2 jaune", "text": "Après qu'un autre joueur active un système contenant vos vaisseaux, gagnez 4 biens commerciaux."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Research Agreement", "text": "Après que le joueur Jol-Nar recherche une technologie qui n'est pas une technologie de faction : gagnez cette technologie. Puis rendez cette carte au joueur Jol-Nar."}
+    },
+    {
+      "id": "winnu",
+      "name": "The Winnu", "nameFr": "Les Winnu",
+      "expansion": "base",
+      "color": "#e0a93a",
+      "summary": "Faction flexible centrée sur Mecatol Rex : elle peut s'emparer du trône impérial gratuitement et s'y fortifier. Son vaisseau amiral devient terrifiant face à une grande flotte ennemie.",
+      "abilities": [
+        {"name": "Blood Ties", "text": "Vous n'avez pas besoin de dépenser d'influence pour retirer le pion des Gardiens de Mecatol Rex."},
+        {"name": "Reclamation", "text": "Après une action tactique où vous prenez le contrôle de Mecatol Rex, vous pouvez y placer 1 PDS et 1 dock spatial de vos renforts."}
+      ],
+      "commodities": 3,
+      "startingTech": ["Choisissez n'importe quelle technologie sans prérequis"],
+      "startingUnits": "1 dock spatial, 1 PDS, 1 transporteur, 1 croiseur, 2 chasseurs, 2 infanteries",
+      "homeSystem": {
+        "name": "Winnu",
+        "planets": [
+          {"name": "Winnu", "resources": 3, "influence": 4, "trait": "cultural", "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Salai Sai Corian", "cost": "8", "combat": "7", "move": "1", "capacity": "3", "text": "Encaisser les dégâts. Ce vaisseau lance un nombre de dés égal au nombre de vaisseaux non-chasseurs adverses dans ce système (au minimum 1 dé)."},
+      "mech": {"name": "Reclaimer", "text": "Après une action tactique où vous prenez le contrôle de cette planète, vous pouvez y placer 1 PDS ou 1 dock spatial de vos renforts. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Berekar Berekon", "text": "Lorsque les unités d'un joueur utilisent Production : vous pouvez épuiser cette carte pour réduire de 2 le coût combiné des unités produites."},
+        "commander": {"name": "Rickar Rickani", "unlock": "Contrôler Mecatol Rex, ou engager un combat dans le système de Mecatol Rex.", "text": "Durant un combat : appliquez +2 aux jets de combat de vos unités dans le système de Mecatol Rex, dans votre système d'origine et dans chaque système contenant une planète légendaire."},
+        "hero": {"name": "Mathis Mathinus", "unlock": "Avoir validé 3 objectifs.", "text": "Imperial Seal — ACTION : exécutez la compétence primaire de n'importe quelle carte de stratégie. Puis, choisissez n'importe quel nombre d'autres joueurs ; ils peuvent exécuter la compétence secondaire de cette carte. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Lazax Gate Folding", "type": "blue", "prereqs": "2 bleu", "text": "Durant vos actions tactiques, si vous ne contrôlez pas Mecatol Rex, traitez son système comme contenant un trou de ver alpha et un trou de ver bêta. ACTION : si vous contrôlez Mecatol Rex, épuisez cette carte pour y placer 1 infanterie de vos renforts."},
+        {"name": "Hegemonic Trade Policy", "type": "yellow", "prereqs": "2 jaune", "text": "Épuisez cette carte lorsque vos unités utilisent Production ; échangez les valeurs de ressources et d'influence de 1 planète que vous contrôlez jusqu'à la fin du tour."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Acquiescence", "text": "Lorsque le joueur Winnu résout une action stratégique : vous n'avez pas à dépenser ni placer de jeton pour résoudre la compétence secondaire de cette carte. Puis rendez la carte au joueur Winnu."}
+    },
+    {
+      "id": "xxcha-kingdom",
+      "name": "The Xxcha Kingdom", "nameFr": "Le Royaume Xxcha",
+      "expansion": "base",
+      "color": "#5fae6e",
+      "summary": "Faction diplomatique et défensive : elle contrôle les projets politiques, étend pacifiquement son territoire et excelle en défense grâce à un canon spatial surpuissant. Idéale pour un jeu patient et contrôlé.",
+      "abilities": [
+        {"name": "Peace Accords", "text": "Après avoir résolu la compétence primaire ou secondaire de la carte Diplomacy, vous pouvez prendre le contrôle de 1 planète (autre que Mecatol Rex) sans unités, adjacente à une planète que vous contrôlez."},
+        {"name": "Quash", "text": "Lorsqu'un projet est révélé, vous pouvez dépenser 1 pion de votre réserve stratégique pour le défausser et en révéler un nouveau ; les joueurs votent sur celui-ci à la place."}
+      ],
+      "commodities": 4,
+      "startingTech": ["Graviton Laser System"],
+      "startingUnits": "1 dock spatial, 1 PDS, 1 transporteur, 2 croiseurs, 3 chasseurs, 4 infanteries",
+      "homeSystem": {
+        "name": "Archon Ren & Archon Tau",
+        "planets": [
+          {"name": "Archon Ren", "resources": 2, "influence": 3, "trait": "cultural", "techSpecialty": null},
+          {"name": "Archon Tau", "resources": 1, "influence": 1, "trait": "cultural", "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Loncara Ssodu", "cost": "8", "combat": "7", "move": "1", "capacity": "3", "text": "Encaisser les dégâts. Canon spatial 5 (x3). Vous pouvez utiliser le Canon spatial de ce vaisseau contre des vaisseaux dans des systèmes adjacents."},
+      "mech": {"name": "Indomitus", "text": "Canon spatial 8. Encaisser les dégâts. Peut utiliser son Canon spatial contre des vaisseaux dans des systèmes adjacents."},
+      "leaders": {
+        "agent": {"name": "Ggrocuto Rinn", "text": "Lorsqu'un joueur active un système : vous pouvez épuiser cette carte pour préparer 1 planète qu'il contrôle dans un système adjacent ou actif ; sinon, retirez 1 infanterie de cette planète vers ses renforts."},
+        "commander": {"name": "Elder Qanoj", "unlock": "Contrôler des planètes dont l'influence combinée est de 12 ou plus.", "text": "Lorsque vous épuisez une planète pour voter, elle fournit +1 vote. Les effets de jeu ne peuvent pas empêcher vos planètes de voter."},
+        "hero": {"name": "Xxekir Grom", "unlock": "Avoir validé 3 objectifs.", "text": "Political Data Nexus — ACTION : regardez les projets en cours et la pioche de projets ; vous pouvez exécuter la compétence primaire de la carte Politics. Vous pouvez ensuite traiter les valeurs combinées ressources/influence de toutes vos planètes comme interchangeables jusqu'à la fin du tour. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Nullification Field", "type": "yellow", "prereqs": "2 jaune", "text": "Après qu'un autre joueur active un système contenant vos vaisseaux : vous pouvez épuiser cette carte et dépenser 1 pion de votre réserve stratégique pour mettre fin au tour de ce joueur (sans qu'il déclenche d'action)."},
+        {"name": "Instinct Training", "type": "green", "prereqs": "1 vert", "text": "Vous pouvez épuiser cette carte et dépenser 1 pion de votre réserve stratégique lorsqu'un autre joueur joue une carte Action, pour l'annuler."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Political Favor", "text": "Lorsqu'un projet est révélé : retirez 1 pion de la réserve stratégique du joueur Xxcha et remettez-le dans ses renforts. Puis défaussez l'agenda révélé et révélez-en un nouveau."}
+    },
+    {
+      "id": "yin-brotherhood",
+      "name": "The Yin Brotherhood", "nameFr": "La Confrérie Yin",
+      "expansion": "base",
+      "color": "#c95b9f",
+      "summary": "Faction fanatique et imprévisible au combat terrestre : elle convertit l'infanterie ennemie et sacrifie ses propres vaisseaux pour infliger des touches. Son vaisseau amiral, en explosant, peut anéantir tout un système.",
+      "abilities": [
+        {"name": "Indoctrination", "text": "Au début d'un combat terrestre, vous pouvez dépenser 2 d'influence pour remplacer 1 infanterie adverse participante par 1 infanterie de vos renforts."},
+        {"name": "Devotion", "text": "Après chaque round de combat spatial, vous pouvez détruire 1 de vos croiseurs ou destroyers du système actif pour produire 1 touche à attribuer à 1 vaisseau adverse."}
+      ],
+      "commodities": 2,
+      "startingTech": ["Sarween Tools"],
+      "startingUnits": "1 dock spatial, 2 transporteurs, 1 destroyer, 4 infanteries",
+      "homeSystem": {
+        "name": "Darien",
+        "planets": [
+          {"name": "Darien", "resources": 4, "influence": 4, "trait": "cultural", "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Van Hauge", "cost": "8", "combat": "9", "move": "1", "capacity": "3", "text": "Encaisser les dégâts. Lorsque ce vaisseau est détruit, détruisez tous les vaisseaux de ce système."},
+      "mech": {"name": "Moyin's Ashes", "text": "Vous pouvez utiliser Indoctrination sur cette planète sans dépenser d'influence. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Brother Milor", "text": "Après qu'une unité est détruite durant un combat : vous pouvez épuiser cette carte pour permettre à ce joueur de placer 2 chasseurs dans le système (si c'était un vaisseau) ou 2 infanteries sur sa planète (si c'était une force terrestre)."},
+        "commander": {"name": "Brother Omar", "unlock": "Utiliser l'une de vos capacités de faction (Indoctrination ou Devotion).", "text": "Cette carte satisfait un prérequis de technologie verte. Lorsque vous recherchez une technologie possédée par un autre joueur, vous pouvez renvoyer 1 de vos infanteries dans vos renforts pour ignorer tous les prérequis."},
+        "hero": {"name": "Dannel of the Tenth", "unlock": "Avoir validé 3 objectifs.", "text": "Quantum Dissemination — ACTION : engagez jusqu'à 3 infanteries de vos renforts sur des planètes qui ne sont pas des systèmes d'origine, et résolvez les combats terrestres ; les joueurs ne peuvent pas utiliser Canon spatial contre ces unités. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Impulse Core", "type": "yellow", "prereqs": "1 jaune", "text": "ACTION : épuisez cette carte, choisissez un système et détruisez n'importe quel nombre de vos croiseurs ou destroyers dans des systèmes adjacents. Générez 1 touche par vaisseau détruit ; l'adversaire les attribue à des vaisseaux non-chasseurs si possible."},
+        {"name": "Yin Spinner", "type": "green", "prereqs": "2 vert", "text": "Après avoir produit des unités, placez jusqu'à 2 infanteries de vos renforts sur une planète que vous contrôlez ou dans une zone spatiale contenant vos vaisseaux."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Greyfire Mutagen", "text": "Au début d'un combat terrestre contre 2 forces terrestres ou plus non contrôlées par Yin : remplacez 1 infanterie adverse par 1 infanterie de vos renforts. Puis rendez cette carte au joueur Yin."}
+    },
+    {
+      "id": "yssaril-tribes",
+      "name": "The Yssaril Tribes", "nameFr": "Les Tribus Yssaril",
+      "expansion": "base",
+      "color": "#7a9c3a",
+      "summary": "Faction de manipulation et d'espionnage : elle accumule une main illimitée de cartes Action et fouille celle de ses adversaires. Le contrôle de l'information lui donne un avantage tactique constant.",
+      "abilities": [
+        {"name": "Stall Tactics", "text": "ACTION : défaussez 1 carte Action de votre main."},
+        {"name": "Scheming", "text": "Lorsque vous piochez 1 ou plusieurs cartes Action, piochez 1 carte Action supplémentaire. Puis défaussez 1 carte Action de votre main."},
+        {"name": "Crafty", "text": "Vous pouvez avoir n'importe quel nombre de cartes Action en main. Les effets de jeu ne peuvent pas vous en empêcher."}
+      ],
+      "commodities": 3,
+      "startingTech": ["Neural Motivator"],
+      "startingUnits": "1 dock spatial, 1 PDS, 2 transporteurs, 1 croiseur, 5 infanteries",
+      "homeSystem": {
+        "name": "Retillion & Shalloq",
+        "planets": [
+          {"name": "Retillion", "resources": 3, "influence": 1, "trait": "cultural", "techSpecialty": null},
+          {"name": "Shalloq", "resources": 1, "influence": 2, "trait": "cultural", "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Y'sia Y'ssrila", "cost": "8", "combat": "5", "move": "2", "capacity": "3", "text": "Encaisser les dégâts. Ce vaisseau peut traverser des systèmes contenant des vaisseaux d'autres joueurs."},
+      "mech": {"name": "Blackshade Infiltrator", "text": "Cette unité peut être engagée sur des planètes depuis des zones spatiales et des planètes du système actif ou adjacentes. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Ssruu", "text": "Cette carte possède la capacité textuelle de l'agent de chaque autre joueur, même si cet agent est épuisé."},
+        "commander": {"name": "So Ata", "unlock": "Avoir 7 cartes Action.", "text": "Après qu'un autre joueur active un système contenant vos unités : vous pouvez regarder ses cartes Action, ses billets à ordre ou ses objectifs secrets."},
+        "hero": {"name": "Kyver, Blade and Key", "unlock": "Avoir validé 3 objectifs.", "text": "Guild of Spies — ACTION : chaque autre joueur vous montre 1 carte Action de sa main. Pour chacun, vous pouvez soit prendre cette carte, soit le forcer à défausser 3 cartes Action aléatoires. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Transparasteel Plating", "type": "green", "prereqs": "1 vert", "text": "Durant votre tour, les joueurs qui ont passé ne peuvent pas jouer de cartes Action."},
+        {"name": "Mageon Implants", "type": "green", "prereqs": "3 vert", "text": "ACTION : épuisez cette carte pour regarder la main de cartes Action d'un autre joueur ; choisissez-en 1 et ajoutez-la à votre main."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Spy Net", "text": "Au début de votre tour : regardez la main de cartes Action du joueur Yssaril ; choisissez-en 1 et ajoutez-la à votre main. Puis rendez cette carte au joueur Yssaril."}
+    },
+    {
+      "id": "argent-flight",
+      "name": "The Argent Flight", "nameFr": "Le Vol Argent",
+      "expansion": "pok",
+      "color": "#e07b2f",
+      "summary": "Faction militaro-religieuse spécialisée dans les barrages anti-chasseurs et la mobilité de flotte, qui domine la phase de Projet grâce à un grand nombre de votes.",
+      "abilities": [
+        {"name": "Zeal", "text": "Vous votez toujours en premier durant la phase de Projet. Lorsque vous lancez au moins 1 vote, lancez 1 vote supplémentaire pour chaque joueur de la partie, vous y compris."},
+        {"name": "Raid Formation", "text": "Lorsque vos unités utilisent le Barrage anti-chasseur : pour chaque touche produite au-delà du nombre de chasseurs adverses, choisissez 1 vaisseau adverse ayant Encaisser les dégâts ; ce vaisseau est endommagé."}
+      ],
+      "commodities": 3,
+      "startingTech": ["Choisir deux parmi : Neural Motivator, Sarween Tools, Plasma Scoring"],
+      "startingUnits": "1 transporteur, 2 destroyers, 2 chasseurs, 5 infanteries, 1 dock spatial, 1 PDS",
+      "homeSystem": {
+        "name": "Valk, Avar, and Ylir",
+        "planets": [
+          {"name": "Valk", "resources": 2, "influence": 0, "trait": null, "techSpecialty": null},
+          {"name": "Avar", "resources": 1, "influence": 1, "trait": null, "techSpecialty": null},
+          {"name": "Ylir", "resources": 0, "influence": 2, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Quetzecoatl", "cost": "8", "combat": "7 (x2)", "move": "1", "capacity": "3", "text": "Encaisser les dégâts. Les autres joueurs ne peuvent pas utiliser le Canon spatial contre vos vaisseaux dans ce système."},
+      "mech": {"name": "Aerie Sentinel", "text": "Encaisser les dégâts. Cette unité ne compte pas dans la capacité si elle est transportée ou dans une zone spatiale avec 1 ou plusieurs de vos vaisseaux ayant une capacité."},
+      "leaders": {
+        "agent": {"name": "Trrakan Aun Zulok", "text": "Lorsque vos unités effectuent un jet pour une capacité d'unité (barrage, canon spatial, bombardement) : vous pouvez choisir 1 de ces unités pour lancer 1 dé supplémentaire."},
+        "commander": {"name": "Trillossa Aun Mirik", "unlock": "Contrôler des planètes dans 3 systèmes hors de votre zone natale.", "text": "Lorsqu'un joueur produit des forces terrestres dans un système : vous pouvez épuiser cette carte ; il peut placer ces unités sur n'importe quelles planètes qu'il contrôle dans ce système ou des systèmes adjacents."},
+        "hero": {"name": "Mirik Aun Sissiri", "unlock": "Avoir validé 3 objectifs.", "text": "Protocole Hélix — ACTION : déplacez n'importe quel nombre de vos vaisseaux vers n'importe quel nombre de systèmes contenant 1 de vos pions de commandement et aucun vaisseau adverse. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Strike Wing Alpha II", "type": "unit", "prereqs": "améliore le Destroyer", "text": "Coût 1, Combat 7, Mouvement 2, Capacité 1, Barrage anti-chasseur 6 (x3). Lors d'un barrage anti-chasseur, pour chaque touche au-delà du nombre de chasseurs, détruisez 1 force terrestre adverse dans la zone spatiale."},
+        {"name": "Aerie Hololattice", "type": "yellow", "prereqs": "1 jaune", "text": "Les autres joueurs ne peuvent pas déplacer de vaisseaux à travers les systèmes contenant vos structures. Chaque planète avec vos structures gagne Production 1."}
+      ],
+      "factionUnits": [
+        {"name": "Strike Wing Alpha I", "type": "Destroyer", "cost": "1", "combat": "8", "move": "2", "capacity": "1", "text": "Destroyer de départ amélioré propre à l'Argent Flight. Barrage anti-chasseur 9 (x2)."}
+      ],
+      "promissoryNote": {"name": "Strike Wing Ambuscade", "text": "Lorsque vos unités effectuent un jet pour une capacité d'unité : choisissez 1 unité pour lancer 1 dé supplémentaire. Puis rendez cette carte au joueur Argent Flight."}
+    },
+    {
+      "id": "empyrean",
+      "name": "The Empyrean", "nameFr": "L'Empyrée",
+      "expansion": "pok",
+      "color": "#6e3ddb",
+      "summary": "Faction de l'ombre vivant dans une nébuleuse, experte de l'exploration de la frontière et du contrôle du mouvement, qui négocie pactes et billets à ordre depuis le vide.",
+      "abilities": [
+        {"name": "Voidborn", "text": "Les nébuleuses n'affectent pas le mouvement de vos vaisseaux."},
+        {"name": "Aetherpassage", "text": "Après qu'un joueur active un système, vous pouvez l'autoriser à déplacer ses vaisseaux à travers des systèmes contenant vos vaisseaux."},
+        {"name": "Dark Whispers", "text": "Durant la mise en place, prenez la billet à ordre supplémentaire de l'Empyrean ; vous possédez 2 billets à ordre de faction."}
+      ],
+      "commodities": 4,
+      "startingTech": ["Dark Energy Tap"],
+      "startingUnits": "2 transporteurs, 1 destroyer, 2 chasseurs, 4 infanteries, 1 dock spatial",
+      "homeSystem": {
+        "name": "The Dark",
+        "planets": [
+          {"name": "The Dark", "resources": 3, "influence": 4, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Dynamo", "cost": "8", "combat": "5 (x2)", "move": "1", "capacity": "3", "text": "Encaisser les dégâts. Après qu'une unité (de n'importe quel joueur) dans ce système ou un système adjacent utilise Encaisser les dégâts, vous pouvez dépenser 2 d'influence pour la réparer."},
+      "mech": {"name": "Watcher", "text": "Encaisser les dégâts. Vous pouvez retirer cette unité d'un système contenant des unités adverses (ou adjacent à de telles unités) pour annuler une carte Action jouée par ce joueur."},
+      "leaders": {
+        "agent": {"name": "Acamar", "text": "Après qu'un joueur déplace des vaisseaux dans un système sans planète : vous pouvez épuiser cette carte ; ce joueur gagne 1 pion de commandement."},
+        "commander": {"name": "Xuange", "unlock": "Être voisin de tous les autres joueurs.", "text": "Après qu'un autre joueur déplace des vaisseaux dans un système contenant 1 de vos pions de commandement : vous pouvez renvoyer ce jeton dans vos renforts."},
+        "hero": {"name": "Conservator Procyon", "unlock": "Avoir validé 3 objectifs.", "text": "ACTION : placez 1 jeton de frontière dans chaque système sans planète ni jeton de frontière. Puis explorez chaque jeton de frontière dans un système contenant vos vaisseaux. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Aetherstream", "type": "blue", "prereqs": "2 bleu", "text": "Après que vous ou un voisin activez un système adjacent à une anomalie, vous pouvez appliquer +1 au mouvement de tous les vaisseaux de ce joueur durant cette action tactique."},
+        {"name": "Voidwatch", "type": "green", "prereqs": "1 vert", "text": "Après qu'un joueur déplace des vaisseaux dans un système contenant vos unités, il doit vous donner 1 billet à ordre de sa main, si possible."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Dark Pact", "text": "Lorsque le porteur donne au joueur Empyrean un nombre de commodités égal à sa valeur maximale, chacun gagne 1 bien commercial ; carte rendue lorsque le porteur active un système contenant des unités Empyrean. (Note : via Dark Whispers, l'Empyrean a aussi Blood Pact : si vous et lui votez pour le même résultat, lancez 4 votes supplémentaires.)"}
+    },
+    {
+      "id": "mahact-gene-sorcerers",
+      "name": "The Mahact Gene-Sorcerers", "nameFr": "Les Géno-Sorciers Mahact",
+      "expansion": "pok",
+      "color": "#e8d33a",
+      "summary": "Anciens seigneurs galactiques qui capturent les pions de commandement de leurs adversaires vaincus pour exploiter leurs commandants et contrôler leurs tours, dominant par la manipulation génétique et politique.",
+      "abilities": [
+        {"name": "Edict", "text": "Lorsque vous gagnez un combat, placez 1 pion de commandement des renforts de votre adversaire dans votre réserve de flotte, s'il n'en contient pas déjà un de ce joueur."},
+        {"name": "Imperia", "text": "Tant que le pion de commandement d'un autre joueur est dans votre réserve de flotte, vous pouvez utiliser la capacité du commandant de ce joueur, s'il est déverrouillé."},
+        {"name": "Hubris", "text": "Durant la mise en place, purgez votre billet à ordre « Alliance ». Vous ne pouvez pas recevoir les notes « Alliance » des autres joueurs."}
+      ],
+      "commodities": 3,
+      "startingTech": ["Bio-Stims", "Predictive Intelligence"],
+      "startingUnits": "1 cuirassé, 1 transporteur, 1 croiseur, 2 chasseurs, 3 infanteries, 1 dock spatial",
+      "homeSystem": {
+        "name": "Ixth",
+        "planets": [
+          {"name": "Ixth", "resources": 3, "influence": 5, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Arvicon Rex", "cost": "8", "combat": "5 (x2)", "move": "1", "capacity": "3", "text": "Encaisser les dégâts. Durant un combat contre un adversaire dont le pion de commandement n'est pas dans votre réserve de flotte, appliquez +2 aux jets de combat de cette unité."},
+      "mech": {"name": "Starlancer", "text": "Encaisser les dégâts. Après qu'un joueur dont le pion de commandement est dans votre réserve de flotte active ce système, vous pouvez dépenser son jeton pour mettre fin à son tour ; il récupère ce jeton."},
+      "leaders": {
+        "agent": {"name": "Jae Mir Kan", "text": "Lorsque vous devriez dépenser un pion de commandement durant la compétence secondaire d'une action stratégique : vous pouvez épuiser cette carte pour retirer 1 pion de commandement du joueur actif du plateau et l'utiliser à la place."},
+        "commander": {"name": "Il Na Viroset", "unlock": "Avoir les pions de commandement de 2 autres factions dans votre réserve de flotte.", "text": "Durant vos actions tactiques, vous pouvez activer des systèmes contenant vos propres pions de commandement. Si vous le faites, renvoyez les deux jetons dans vos renforts et mettez fin à votre tour."},
+        "hero": {"name": "Airo Shir Aur", "unlock": "Avoir validé 3 objectifs.", "text": "Bénédiction — ACTION : déplacez toutes les unités de la zone spatiale de n'importe quel système vers un système adjacent contenant les vaisseaux d'un autre joueur. Un combat spatial y est résolu ; aucun joueur ne peut battre en retraite ni déplacer ses vaisseaux. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Crimson Legionnaire II", "type": "unit", "prereqs": "2 vert (améliore l'infanterie)", "text": "Coût 1 (x2), Combat 7. Après destruction, gagnez 1 commodité ou convertissez 1 commodité en bien commercial, puis placez l'unité sur cette carte. Au début de votre prochain tour, placez chaque unité posée sur cette carte sur une planète que vous contrôlez dans votre système natal."},
+        {"name": "Genetic Recombination", "type": "green", "prereqs": "1 vert", "text": "Vous pouvez épuiser cette carte avant qu'un joueur ne lance ses votes ; il doit lancer au moins 1 vote pour un résultat de votre choix, ou retirer 1 pion de sa réserve de flotte vers ses renforts."}
+      ],
+      "factionUnits": [
+        {"name": "Crimson Legionnaire I", "type": "Infantry", "cost": "1 (x2)", "combat": "8", "move": "", "capacity": "", "text": "Infanterie de départ propre aux Mahact. Après destruction, gagnez 1 commodité ou convertissez 1 commodité en bien commercial."}
+      ],
+      "promissoryNote": {"name": "Scepter of Dominion", "text": "Au début de la phase de stratégie : choisissez 1 système non natal contenant vos unités ; chaque autre joueur ayant un jeton sur la feuille d'ordre Mahact place un jeton de ses renforts dans ce système. Puis rendez la carte au joueur Mahact."}
+    },
+    {
+      "id": "naaz-rokha-alliance",
+      "name": "The Naaz-Rokha Alliance", "nameFr": "L'Alliance Naaz-Rokha",
+      "expansion": "pok",
+      "color": "#4caf50",
+      "summary": "Alliance d'explorateurs et de robots experte dans la fouille des planètes et la collecte de fragments de relique, dont les puissants mécas Eidolon peuvent combattre dans l'espace.",
+      "abilities": [
+        {"name": "Distant Suns", "text": "Lorsque vous explorez une planète contenant 1 de vos mécas, vous pouvez piocher 1 carte d'exploration supplémentaire ; choisissez-en 1 à résoudre et défaussez le reste."},
+        {"name": "Fabrication", "text": "ACTION : purgez 2 de vos fragments de relique du même type pour gagner 1 relique ; ou purgez 1 fragment de relique pour gagner 1 pion de commandement."}
+      ],
+      "commodities": 3,
+      "startingTech": ["Psychoarchaeology", "AI Development Algorithm"],
+      "startingUnits": "2 transporteurs, 1 destroyer, 2 chasseurs, 3 infanteries, 1 méca, 1 dock spatial",
+      "homeSystem": {
+        "name": "Naazir and Rokha",
+        "planets": [
+          {"name": "Naazir", "resources": 2, "influence": 1, "trait": null, "techSpecialty": null},
+          {"name": "Rokha", "resources": 1, "influence": 2, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Visz el Vir", "cost": "8", "combat": "9 (x2)", "move": "1", "capacity": "4", "text": "Encaisser les dégâts. Vos mécas dans ce système lancent 1 dé supplémentaire durant le combat."},
+      "mech": {"name": "Z-Grav Eidolon", "text": "Encaisser les dégâts. Si cette unité est dans la zone spatiale du système actif, elle est aussi un vaisseau. À la fin d'un combat spatial dans le système actif, retournez cette carte (l'unité reprend sa forme terrestre)."},
+      "leaders": {
+        "agent": {"name": "Garv and Gunn", "text": "À la fin du tour d'un joueur : vous pouvez épuiser cette carte pour l'autoriser à explorer 1 planète qu'il contrôle."},
+        "commander": {"name": "Dart and Tai", "unlock": "Avoir des mécas dans 3 systèmes différents.", "text": "Lorsque vous prenez le contrôle d'une planète contrôlée par un autre joueur : vous pouvez explorer cette planète."},
+        "hero": {"name": "Hesh and Prit", "unlock": "Avoir validé 3 objectifs.", "text": "ACTION : gagnez 1 relique et résolvez la compétence secondaire d'un maximum de 2 cartes de stratégie prêtes ou non choisies ; durant cette action, dépensez des pions de commandement de vos renforts plutôt que de votre réserve stratégique. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Pre-Fab Arcologies", "type": "green", "prereqs": "3 vert", "text": "Après avoir exploré une planète, préparez cette planète."},
+        {"name": "Supercharge", "type": "red", "prereqs": "1 rouge", "text": "Au début d'un round de combat, vous pouvez épuiser cette carte pour appliquer +1 à chacun de vos jets de combat d'unité durant ce round."}
+      ],
+      "factionUnits": [
+        {"name": "Eidolon", "type": "Méca", "cost": "2", "combat": "6 (x2)", "move": "", "capacity": "", "text": "Méca de la Naaz-Rokha (forme terrestre). Voir Z-Grav Eidolon : devient un vaisseau dans la zone spatiale du système actif."}
+      ],
+      "promissoryNote": {"name": "Black Market Forgery", "text": "ACTION : purgez 2 de vos fragments de relique du même type pour gagner 1 relique. Puis rendez cette carte au joueur Naaz-Rokha."}
+    },
+    {
+      "id": "the-nomad",
+      "name": "The Nomad", "nameFr": "Le Nomade",
+      "expansion": "pok",
+      "color": "#6a5acd",
+      "summary": "Faction d'intrigue et d'économie qui domine la phase de Projet et le commerce. Dispose de 3 agents puissants dès le départ et d'un vaisseau amiral surpuissant, le Memoria.",
+      "abilities": [
+        {"name": "The Company", "text": "Durant la mise en place, prenez les 2 agents Nomad supplémentaires et placez-les à côté de votre feuille de faction ; vous possédez ainsi 3 agents."},
+        {"name": "Future Sight", "text": "Pendant la phase de Projet, après qu'un résultat pour lequel vous avez voté ou que vous avez prédit est résolu, gagnez 1 bien commercial."}
+      ],
+      "commodities": 4,
+      "startingTech": ["Sling Relay"],
+      "startingUnits": "1 vaisseau amiral, 1 transporteur, 1 destroyer, 3 chasseurs, 4 infanteries, 1 dock spatial",
+      "homeSystem": {
+        "name": "Arcturus",
+        "planets": [
+          {"name": "Arcturus", "resources": 4, "influence": 4, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Memoria", "cost": "8", "combat": "7 (x2)", "move": "1", "capacity": "3", "text": "Encaisser les dégâts. Barrage anti-chasseur 8 (x3). Considérez ce vaisseau comme adjacent aux systèmes contenant 1 ou plusieurs de vos mécas."},
+      "mech": {"name": "Quantum Manipulator", "text": "Tant qu'il est dans une zone spatiale pendant un combat, ce méca peut utiliser Encaisser les dégâts pour annuler une touche infligée à vos vaisseaux. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Artuno the Betrayer (+ Field Marshal Mercer, The Thundarian)", "text": "Artuno : quand vous gagnez des biens commerciaux depuis la réserve, vous pouvez épuiser cette carte pour placer un nombre égal de biens commerciaux dessus ; à la réactivation, gagnez ces biens commerciaux. (Le Nomad possède 3 agents au total grâce à The Company.)"},
+        "commander": {"name": "Navarch Feng", "unlock": "Avoir validé 1 objectif secret.", "text": "Quand vous produisez votre vaisseau amiral : vous ne dépensez aucune ressource pour le produire."},
+        "hero": {"name": "Ahk-Syl Siven", "unlock": "Avoir validé 3 objectifs.", "text": "Probability Matrix — ACTION : placez ce jeton de héros dans n'importe quel système. Considérez ce système comme adjacent à tous les systèmes contenant un de vos docks spatiaux jusqu'à la fin du tour, puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Temporal Command Suite", "type": "yellow", "prereqs": "1 jaune", "text": "Après que l'agent de n'importe quel joueur est épuisé, vous pouvez épuiser cette carte pour le réactiver ; si vous réactivez l'agent d'un autre joueur, vous pouvez effectuer une transaction avec lui."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "The Cavalry", "text": "Au début d'un combat spatial contre un autre joueur : considérez 1 de vos vaisseaux non-chasseurs comme ayant Encaisser les dégâts, la valeur de combat et le Barrage anti-chasseur du vaisseau amiral Nomad. Puis rendez cette carte au joueur Nomad à la fin du combat."}
+    },
+    {
+      "id": "the-titans-of-ul",
+      "name": "The Titans of Ul", "nameFr": "Les Titans de Ul",
+      "expansion": "pok",
+      "color": "#d96bb0",
+      "summary": "Faction défensive bâtie autour des structures et des PDS, qui transforme ses PDS en unités de combat mobiles (mécas et croiseurs). Sème des jetons dormants pour faire surgir des PDS sur le plateau.",
+      "abilities": [
+        {"name": "Terragenesis", "text": "Après avoir exploré une planète sans jeton dormant, vous pouvez placer ou déplacer 1 jeton dormant sur cette planète."},
+        {"name": "Awaken", "text": "Après avoir activé un système contenant 1 ou plusieurs de vos jetons dormants, vous pouvez remplacer chacun par 1 PDS de vos renforts."},
+        {"name": "Coalescence", "text": "Si votre vaisseau amiral ou Awaken place vos unités dans la même zone spatiale ou sur la même planète que les unités d'un autre joueur, vos unités doivent participer au combat."}
+      ],
+      "commodities": 2,
+      "startingTech": ["Antimass Deflectors", "Scanlink Drone Network"],
+      "startingUnits": "1 cuirassé, 2 croiseurs, 2 chasseurs, 3 infanteries, 1 dock spatial, 1 PDS",
+      "homeSystem": {
+        "name": "Elysium",
+        "planets": [
+          {"name": "Elysium", "resources": 4, "influence": 1, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "Ouranos", "cost": "8", "combat": "7 (x2)", "move": "1", "capacity": "3", "text": "Encaisser les dégâts. DÉPLOIEMENT : après avoir activé un système contenant 1 ou plusieurs de vos PDS, vous pouvez remplacer 1 de ces PDS par cette unité."},
+      "mech": {"name": "Hecatoncheires", "text": "DÉPLOIEMENT : quand vous devriez placer un PDS sur une planète, vous pouvez plutôt y placer 1 méca et 1 infanterie. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Tellurian", "text": "Quand une touche est produite contre une unité : vous pouvez épuiser cette carte pour annuler cette touche."},
+        "commander": {"name": "Tungstantus", "unlock": "Avoir 5 structures sur le plateau.", "text": "Quand vos unités utilisent Production : vous pouvez gagner 1 bien commercial. ACTION : épuisez cette carte pour placer 1 PDS de vos renforts sur une planète que vous contrôlez."},
+        "hero": {"name": "Ul The Progenitor", "unlock": "Avoir validé 3 objectifs.", "text": "Geoform — ACTION : réactivez Elysium et attachez cette carte à cette planète. Ses valeurs ressources et influence augmentent chacune de 3, et elle gagne Canon spatial 5 (x3) comme s'il s'agissait d'une unité. Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Saturn Engine II", "type": "unit", "prereqs": "1 jaune, 1 vert, 1 rouge", "text": "Croiseur amélioré. Coût 2, Combat 6, Mouvement 3, Capacité 2. Encaisser les dégâts."},
+        {"name": "Hel-Titan II", "type": "unit", "prereqs": "1 rouge, 1 jaune", "text": "PDS amélioré. Combat 6. À la fois structure et unité de combat terrestre ; ne peut pas être transporté. Bouclier planétaire, Encaisser les dégâts, Production 1, Canon spatial 5 (x1). Peut utiliser son Canon spatial contre des vaisseaux dans des systèmes adjacents."}
+      ],
+      "factionUnits": [
+        {"name": "Saturn Engine I", "type": "Cruiser", "cost": "2", "combat": "7", "move": "2", "capacity": "1", "text": "Croiseur de départ doté d'une capacité de transport (Capacité 1)."},
+        {"name": "Hel-Titan I", "type": "PDS", "cost": "", "combat": "7", "move": "", "capacity": "", "text": "À la fois structure et unité de combat terrestre ; ne peut pas être transporté. Bouclier planétaire, Encaisser les dégâts, Canon spatial 6 (x1), Production 1."}
+      ],
+      "promissoryNote": {"name": "Terraform", "text": "ACTION : attachez cette carte à une planète que vous contrôlez (hors planète d'origine et Mecatol Rex). Ses valeurs ressources et influence augmentent chacune de 1 et elle est considérée comme possédant les trois traits (Cultural, Hazardous, Industrial)."}
+    },
+    {
+      "id": "the-vuilraith-cabal",
+      "name": "The Vuil'Raith Cabal", "nameFr": "La Cabale Vuil'Raith",
+      "expansion": "pok",
+      "color": "#8b0000",
+      "summary": "Faction agressive et terrifiante qui capture les unités ennemies détruites pour les recycler et ignorer les prérequis technologiques. Maîtrise les rifts gravitationnels via ses docks Dimensional Tear.",
+      "abilities": [
+        {"name": "Devour", "text": "Capturez les unités non-structure (les vôtres et celles des adversaires) détruites pendant un combat dans un système contenant vos unités."},
+        {"name": "Amalgamation", "text": "Quand vous produisez une unité, vous pouvez rendre 1 unité capturée de ce type pour la produire sans dépenser de ressources."},
+        {"name": "Riftmeld", "text": "Quand vous recherchez une amélioration d'unité, vous pouvez rendre 1 unité capturée de ce type pour ignorer tous ses prérequis."}
+      ],
+      "commodities": 2,
+      "startingTech": ["Self Assembly Routines"],
+      "startingUnits": "1 cuirassé, 1 transporteur, 1 croiseur, 3 chasseurs, 3 infanteries, 1 dock spatial (Dimensional Tear)",
+      "homeSystem": {
+        "name": "Acheron",
+        "planets": [
+          {"name": "Acheron", "resources": 4, "influence": 0, "trait": null, "techSpecialty": null}
+        ]
+      },
+      "flagship": {"name": "The Terror Between", "cost": "8", "combat": "5 (x2)", "move": "1", "capacity": "3", "text": "Encaisser les dégâts. Bombardement 5 (x1). Capturez toutes les autres unités non-structure détruites dans ce système, y compris les vôtres."},
+      "mech": {"name": "Reanimator", "text": "Quand votre infanterie de cette planète est détruite, placez-la sur votre feuille de faction ; ces unités sont capturées. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "The Stillness of Stars", "text": "Après qu'un autre joueur réapprovisionne ses commodités : vous pouvez épuiser cette carte pour convertir ses commodités en biens commerciaux pour lui, et capturer 1 unité de ses renforts dont le coût est ≤ à sa valeur de commodités."},
+        "commander": {"name": "That Which Molds Flesh", "unlock": "Avoir des unités dans 3 rifts gravitationnels.", "text": "Quand vous produisez des chasseurs ou de l'infanterie : jusqu'à 2 de ces unités ne comptent pas dans votre limite de Production."},
+        "hero": {"name": "It Feeds on Carrion", "unlock": "Avoir validé 3 objectifs.", "text": "Dimensional Anchor — ACTION : chaque autre joueur lance un dé pour chacun de ses vaisseaux non-chasseurs dans ou adjacents à un système contenant un Dimensional Tear ; sur 1 à 3, capturez cette unité (et les forces terrestres/chasseurs ainsi retirés). Puis purgez cette carte."}
+      },
+      "factionTech": [
+        {"name": "Vortex", "type": "red", "prereqs": "1 rouge", "text": "ACTION : épuisez cette carte pour choisir l'unité non-structure d'un autre joueur dans un système adjacent à vos docks spatiaux. Capturez 1 unité de ce type depuis les renforts de ce joueur."}
+      ],
+      "factionUnits": [
+        {"name": "Dimensional Tear I", "type": "Space Dock", "cost": "", "combat": "", "move": "", "capacity": "", "text": "Production 5. Ce système est un rift gravitationnel ; vos vaisseaux ne lancent pas de dé pour cette faille. Jusqu'à 6 chasseurs dans ce système ne comptent pas dans la capacité de vos vaisseaux."},
+        {"name": "Dimensional Tear II", "type": "Space Dock", "cost": "", "combat": "", "move": "", "capacity": "", "text": "Production 7 (prérequis 2 jaune). Faille gravitationnelle (vos vaisseaux ne lancent pas de dé). Jusqu'à 12 chasseurs ne comptent pas dans votre capacité."}
+      ],
+      "promissoryNote": {"name": "Crucible", "text": "Après avoir activé un système : vos vaisseaux ne lancent pas de dé pour les rifts gravitationnels pendant ce déplacement ; appliquez à la place +1 supplémentaire au mouvement des vaisseaux qui sortiraient d'une faille ou la traverseraient. Puis rendez cette carte au joueur Vuil'Raith."}
+    },
+    {
+      "id": "the-council-keleres",
+      "name": "The Council Keleres", "nameFr": "Le Conseil Keleres",
+      "expansion": "codex",
+      "color": "#5fb0c8",
+      "summary": "Faction du Codex III : agence du Conseil de Galaxie polyvalente et diplomatique. Choisit une « saveur » (Argent/Mentak/Xxcha) qui détermine son système d'origine, son vaisseau amiral et son héros. Excelle en phase de Projet et autour de Mecatol Rex.",
+      "abilities": [
+        {"name": "The Tribunes", "text": "Durant la mise en place, choisissez secrètement une faction non utilisée parmi Mentak, Xxcha ou Argent Flight. Prenez son système d'origine, ses pions de commandement et marqueurs de contrôle, ainsi que le vaisseau amiral et le héros Keleres correspondants. Vous ne pouvez pas être joué si l'une de ces trois factions est déjà en jeu."},
+        {"name": "Council Patronage", "text": "Réapprovisionnez vos commodités au début de la phase de stratégie, puis gagnez 1 bien commercial."},
+        {"name": "Law's Order", "text": "Vous pouvez dépenser 1 influence au début de votre tour pour considérer toutes les lois en vigueur comme vierges (sans effet) jusqu'à la fin de votre tour."}
+      ],
+      "commodities": 2,
+      "startingTech": [],
+      "startingUnits": "2 transporteurs, 1 croiseur, 2 chasseurs, 2 infanteries, 1 dock spatial (au lieu de techs de départ propres, le Keleres choisit 2 technologies non-faction déjà possédées par d'autres joueurs)",
+      "homeSystem": {
+        "name": "Variable selon la saveur choisie (The Tribunes)",
+        "planets": [
+          {"name": "Moll Primus (si Mentak)", "resources": 4, "influence": 1, "trait": null, "techSpecialty": null},
+          {"name": "Archon Ren (si Xxcha)", "resources": 2, "influence": 3, "trait": "cultural", "techSpecialty": null},
+          {"name": "Archon Tau (si Xxcha)", "resources": 1, "influence": 1, "trait": "cultural", "techSpecialty": "blue"},
+          {"name": "Valk (si Argent)", "resources": 2, "influence": 0, "trait": null, "techSpecialty": null},
+          {"name": "Avar (si Argent)", "resources": 1, "influence": 1, "trait": null, "techSpecialty": null},
+          {"name": "Ylir (si Argent)", "resources": 0, "influence": 2, "trait": null, "techSpecialty": "yellow"}
+        ]
+      },
+      "flagship": {"name": "Artemiris / Omiris / Inanna (selon la saveur)", "cost": "8", "combat": "7 (x2)", "move": "1", "capacity": "6", "text": "Encaisser les dégâts. Les autres joueurs doivent dépenser 2 d'influence pour activer le système contenant ce vaisseau amiral. (Les 3 variantes partagent ces statistiques ; seul le nom change.)"},
+      "mech": {"name": "Omnipares", "text": "Les autres joueurs doivent dépenser 1 d'influence pour engager des forces terrestres sur la planète contenant ce méca. (Encaisser les dégâts)"},
+      "leaders": {
+        "agent": {"name": "Xander Alexin Victori III", "text": "À tout moment : vous pouvez épuiser cette carte pour permettre à n'importe quel joueur de dépenser des commodités comme s'il s'agissait de biens commerciaux."},
+        "commander": {"name": "Suffi An", "unlock": "Après avoir joué une carte Action dotée d'une action de composant, dépensez 1 bien commercial pour la débloquer.", "text": "Après avoir effectué une action de composant : vous pouvez effectuer une action supplémentaire."},
+        "hero": {"name": "Kuuasi Aun Jalatai (Argent) / Harka Leeds (Mentak) / Odlynn Myrr (Xxcha)", "unlock": "Avoir validé 3 objectifs.", "text": "Le héros dépend de la saveur choisie via The Tribunes. Détail des 3 variantes dans les notes ci-dessous."}
+      },
+      "factionTech": [
+        {"name": "Agency Supply Network", "type": "yellow", "prereqs": "2 jaune", "text": "Une fois par action, quand vous résolvez la capacité Production d'une unité, vous pouvez aussi résoudre la Production d'une autre de vos unités dans n'importe quel système (sans déduire la production déjà utilisée)."},
+        {"name": "I.I.H.Q. Modernization", "type": "yellow", "prereqs": "2 jaune", "text": "Gagnez la carte planète Custodia Vigilia (la planète de Mecatol Rex pour vous : 2/3). Vous êtes voisin de tous les joueurs ayant des unités ou des planètes dans le système de Mecatol Rex ou un système adjacent."}
+      ],
+      "factionUnits": [],
+      "promissoryNote": {"name": "Keleres Rider", "text": "Après qu'un projet est révélé : vous ne pouvez pas voter sur ce projet. Prédisez à voix haute un résultat. Si votre prédiction est correcte, piochez 1 carte Action et gagnez 2 biens commerciaux. Puis rendez la carte au joueur Keleres."},
+      "notes": "RÈGLES SPÉCIALES (Codex III). The Tribunes : à la mise en place, choisissez une faction non jouée parmi Argent Flight, Mentak ou Xxcha (la « saveur »). Ce choix détermine : (1) le SYSTÈME D'ORIGINE — Argent (Valk 2/0, Avar 1/1, Ylir 0/2 spéc. jaune), Mentak (Moll Primus 4/1) ou Xxcha (Archon Ren 2/3 + Archon Tau 1/1 spéc. bleue) ; (2) les jetons et marqueurs de cette faction ; (3) le VAISSEAU AMIRAL (3 variantes identiques en stats) : Artemiris (Argent), Omiris (Mentak) ou Inanna (Xxcha) ; (4) le HÉROS : ARGENT = Kuuasi Aun Jalatai (au début d'un round de combat spatial dans un système avec une planète que vous contrôlez, placez votre amiral + jusqu'à 2 croiseurs/destroyers de vos renforts dans le système actif, puis purgez) ; MENTAK = Harka Leeds (ACTION : révélez des cartes Action jusqu'à en avoir 3 avec actions de composant, prenez-les, remélangez le reste, puis purgez) ; XXCHA = Odlynn Myrr (après qu'un projet est révélé, lancez jusqu'à 6 votes supplémentaires et prédisez un résultat ; pour chaque joueur qui vote différemment, gagnez 1 bien commercial et 1 pion de commandement, puis purgez). TECHNOLOGIE : pas de techs de départ propres ; choisissez 2 technologies (non-faction) déjà détenues par d'autres joueurs. RESTRICTION : ne peut pas être joué si Argent/Mentak/Xxcha sont en partie, ni rechercher leurs technologies de faction."
+    }
+  ],
+
+  /* ---------- Déroulement d'un round (séquence des phases) ---------- */
+  turnSequence: [
+    {
+      "phase":"Phase de Stratégie",
+      "summary":"Chaque joueur choisit sa carte de stratégie pour la manche, ce qui fixe l'ordre d'initiative.",
+      "steps":[
+        {"name":"Choix des cartes","text":"En commençant par l'orateur et dans le sens horaire, chaque joueur choisit 1 carte de stratégie disponible (à 5 joueurs et plus : 1 carte chacun ; à 3-4 joueurs : 2 cartes chacun)."},
+        {"name":"Biens commerciaux","text":"Chaque carte de stratégie non choisie ce tour reçoit 1 bien commercial ; celui qui la prendra lors d'une manche suivante récupérera ces biens commerciaux."},
+        {"name":"Ordre d'initiative","text":"L'ordre du jeu de la manche est déterminé par le numéro d'initiative des cartes choisies (du plus petit au plus grand)."}
+      ]
+    },
+    {
+      "phase":"Phase d'Action",
+      "summary":"Dans l'ordre d'initiative, chacun joue une action à son tour, jusqu'à ce que tous aient passé.",
+      "steps":[
+        {"name":"Action tactique","text":"Placez 1 pion de votre réserve tactique sur un système (activation), puis résolvez dans l'ordre : Mouvement → Combat spatial → Invasion → Production."},
+        {"name":"↳ Mouvement","text":"Déplacez vos vaisseaux vers le système actif (selon leur valeur de mouvement). Les PDS adverses à portée peuvent tirer (Canon spatial) sur les vaisseaux entrants."},
+        {"name":"↳ Combat spatial","text":"S'il reste des vaisseaux de deux joueurs : barrage anti-chasseur (1er round), puis rounds de combat (lancer, attribuer les touches, possibilité de retraite) jusqu'à ce qu'un seul joueur subsiste."},
+        {"name":"↳ Invasion","text":"Bombardement → Faire atterrir les forces terrestres → Canon spatial contre les forces engagées → Combat terrestre (planète par planète) → Établir le contrôle des planètes conquises."},
+        {"name":"↳ Production","text":"Utilisez la capacité Production de vos unités du système (docks spatiaux, etc.) pour fabriquer de nouvelles unités."},
+        {"name":"Action stratégique","text":"Résolvez la compétence primaire de votre carte de stratégie ; ensuite, en sens horaire, les autres joueurs peuvent résoudre sa compétence secondaire (généralement en dépensant 1 jeton de stratégie)."},
+        {"name":"Action de composant","text":"Jouez une carte (carte Action, technologie, leader, relique, billet à ordre…) portant le mot « ACTION »."},
+        {"name":"Passer","text":"Si vous avez déjà résolu votre/vos carte(s) de stratégie, vous pouvez passer. Quand tous les joueurs ont passé, la phase se termine."}
+      ]
+    },
+    {
+      "phase":"Phase de Statut",
+      "summary":"Résolution de fin de manche : score, pioche, jetons, préparation.",
+      "steps":[
+        {"name":"1. Valider des objectifs","text":"Dans l'ordre d'initiative, chaque joueur peut valider au maximum 1 objectif public ET 1 objectif secret dont il remplit les conditions."},
+        {"name":"2. Révéler un objectif public","text":"L'orateur révèle le prochain objectif public."},
+        {"name":"3. Piocher des cartes Action","text":"Chaque joueur pioche 1 carte Action (2 avec Neural Motivator)."},
+        {"name":"4. Jetons de commandement","text":"Chaque joueur gagne 2 pions de commandement (1 de plus pour Sol) et les répartit entre ses réserves."},
+        {"name":"5. Préparer les cartes","text":"Préparez toutes vos cartes épuisées (planètes, technologies, leaders…)."},
+        {"name":"6. Réparer les unités","text":"Réparez toutes vos unités endommagées."},
+        {"name":"7. Rendre les cartes de stratégie","text":"Toutes les cartes de stratégie reviennent au centre de la table."}
+      ]
+    },
+    {
+      "phase":"Phase de Projet",
+      "summary":"Uniquement après le retrait du pion des Gardiens de Mecatol Rex. Deux projets sont votés.",
+      "steps":[
+        {"name":"1er agenda","text":"L'orateur révèle le 1er agenda. Discussion, puis vote dans le sens horaire à partir de l'orateur (qui vote en dernier et départage les égalités). Résolvez le résultat."},
+        {"name":"2e agenda","text":"Même procédure pour un 2e agenda."},
+        {"name":"Fin de manche","text":"Préparez toutes les planètes, puis commencez une nouvelle manche (phase de Stratégie)."}
+      ]
+    }
+  ],
+
+  /* ---------- Objectifs (publics étape I/II + secrets) ---------- */
+  objectives: [
+    {"name":"Corner the Market","kind":"public","stage":1,"points":1,"text":"Contrôlez 4 planètes ayant chacune le même type de planète (trait).","expansion":"base"},
+    {"name":"Develop Weaponry","kind":"public","stage":1,"points":1,"text":"Possédez 2 technologies d'amélioration d'unité.","expansion":"base"},
+    {"name":"Diversify Research","kind":"public","stage":1,"points":1,"text":"Possédez 2 technologies dans chacune de 2 couleurs.","expansion":"base"},
+    {"name":"Erect a Monument","kind":"public","stage":1,"points":1,"text":"Dépensez 8 ressources.","expansion":"base"},
+    {"name":"Expand Borders","kind":"public","stage":1,"points":1,"text":"Contrôlez 6 planètes situées hors de votre système d'origine.","expansion":"base"},
+    {"name":"Found Research Outposts","kind":"public","stage":1,"points":1,"text":"Contrôlez 3 planètes qui possèdent une spécialité technologique.","expansion":"base"},
+    {"name":"Intimidate Council","kind":"public","stage":1,"points":1,"text":"Ayez 1 vaisseau ou plus dans 2 systèmes adjacents au système de Mecatol Rex.","expansion":"base"},
+    {"name":"Lead from the Front","kind":"public","stage":1,"points":1,"text":"Dépensez un total de 3 jetons de vos réserves de tactique et/ou de stratégie.","expansion":"base"},
+    {"name":"Negotiate Trade Routes","kind":"public","stage":1,"points":1,"text":"Dépensez 5 biens commerciaux.","expansion":"base"},
+    {"name":"Sway the Council","kind":"public","stage":1,"points":1,"text":"Dépensez 8 d'influence.","expansion":"base"},
+    {"name":"Centralize Galactic Trade","kind":"public","stage":2,"points":2,"text":"Dépensez 10 biens commerciaux.","expansion":"base"},
+    {"name":"Conquer the Weak","kind":"public","stage":2,"points":2,"text":"Contrôlez 1 planète située dans le système d'origine d'un autre joueur.","expansion":"base"},
+    {"name":"Form Galactic Brain Trust","kind":"public","stage":2,"points":2,"text":"Contrôlez 5 planètes qui possèdent une spécialité technologique.","expansion":"base"},
+    {"name":"Found a Golden Age","kind":"public","stage":2,"points":2,"text":"Dépensez 16 ressources.","expansion":"base"},
+    {"name":"Galvanize the People","kind":"public","stage":2,"points":2,"text":"Dépensez un total de 6 jetons de vos réserves de tactique et/ou de stratégie.","expansion":"base"},
+    {"name":"Manipulate Galactic Law","kind":"public","stage":2,"points":2,"text":"Dépensez 16 d'influence.","expansion":"base"},
+    {"name":"Master the Sciences","kind":"public","stage":2,"points":2,"text":"Possédez 2 technologies dans chacune de 4 couleurs.","expansion":"base"},
+    {"name":"Revolutionize Warfare","kind":"public","stage":2,"points":2,"text":"Possédez 3 technologies d'amélioration d'unité.","expansion":"base"},
+    {"name":"Subdue the Galaxy","kind":"public","stage":2,"points":2,"text":"Contrôlez 11 planètes situées hors de votre système d'origine.","expansion":"base"},
+    {"name":"Unify the Colonies","kind":"public","stage":2,"points":2,"text":"Contrôlez 6 planètes ayant chacune le même type de planète (trait).","expansion":"base"},
+    {"name":"Amass Wealth","kind":"public","stage":1,"points":1,"text":"Dépensez 3 d'influence, 3 ressources et 3 biens commerciaux.","expansion":"pok"},
+    {"name":"Build Defenses","kind":"public","stage":1,"points":1,"text":"Ayez 4 structures ou plus.","expansion":"pok"},
+    {"name":"Discover Lost Outposts","kind":"public","stage":1,"points":1,"text":"Contrôlez 2 planètes ayant des cartes attachées.","expansion":"pok"},
+    {"name":"Engineer a Marvel","kind":"public","stage":1,"points":1,"text":"Ayez votre vaisseau amiral ou un Soleil de Guerre sur le plateau.","expansion":"pok"},
+    {"name":"Explore Deep Space","kind":"public","stage":1,"points":1,"text":"Ayez des unités dans 3 systèmes ne contenant aucune planète.","expansion":"pok"},
+    {"name":"Improve Infrastructure","kind":"public","stage":1,"points":1,"text":"Ayez des structures sur 3 planètes situées hors de votre système d'origine.","expansion":"pok"},
+    {"name":"Make History","kind":"public","stage":1,"points":1,"text":"Ayez des unités dans 2 systèmes contenant des planètes légendaires, Mecatol Rex ou des anomalies.","expansion":"pok"},
+    {"name":"Populate the Outer Rim","kind":"public","stage":1,"points":1,"text":"Ayez des unités dans 3 systèmes en bord de plateau, autres que votre système d'origine.","expansion":"pok"},
+    {"name":"Push Boundaries","kind":"public","stage":1,"points":1,"text":"Contrôlez plus de planètes que chacun de 2 de vos voisins.","expansion":"pok"},
+    {"name":"Raise a Fleet","kind":"public","stage":1,"points":1,"text":"Ayez 5 vaisseaux non-chasseurs ou plus dans 1 système.","expansion":"pok"},
+    {"name":"Achieve Supremacy","kind":"public","stage":2,"points":2,"text":"Ayez votre vaisseau amiral ou un Soleil de Guerre dans le système d'origine d'un autre joueur ou dans le système de Mecatol Rex.","expansion":"pok"},
+    {"name":"Become a Legend","kind":"public","stage":2,"points":2,"text":"Ayez des unités dans 4 systèmes contenant des planètes légendaires, Mecatol Rex ou des anomalies.","expansion":"pok"},
+    {"name":"Command an Armada","kind":"public","stage":2,"points":2,"text":"Ayez 8 vaisseaux non-chasseurs ou plus dans 1 système.","expansion":"pok"},
+    {"name":"Construct Massive Cities","kind":"public","stage":2,"points":2,"text":"Ayez 7 structures ou plus.","expansion":"pok"},
+    {"name":"Control the Borderlands","kind":"public","stage":2,"points":2,"text":"Ayez des unités dans 5 systèmes en bord de plateau, autres que votre système d'origine.","expansion":"pok"},
+    {"name":"Hold Vast Reserves","kind":"public","stage":2,"points":2,"text":"Dépensez 6 d'influence, 6 ressources et 6 biens commerciaux.","expansion":"pok"},
+    {"name":"Patrol Vast Territories","kind":"public","stage":2,"points":2,"text":"Ayez des unités dans 5 systèmes ne contenant aucune planète.","expansion":"pok"},
+    {"name":"Protect the Border","kind":"public","stage":2,"points":2,"text":"Ayez des structures sur 5 planètes situées hors de votre système d'origine.","expansion":"pok"},
+    {"name":"Reclaim Ancient Monuments","kind":"public","stage":2,"points":2,"text":"Contrôlez 3 planètes ayant des cartes attachées.","expansion":"pok"},
+    {"name":"Rule Distant Lands","kind":"public","stage":2,"points":2,"text":"Contrôlez 2 planètes situées chacune dans, ou adjacentes à, le système d'origine de 2 autres joueurs différents.","expansion":"pok"},
+    {"name":"Destroy Their Greatest Ship","kind":"secret","phase":"action","text":"Détruire le Soleil de Guerre (Soleil de Guerre) ou le vaisseau amiral d'un autre joueur.","expansion":"base"},
+    {"name":"Make an Example of Their World","kind":"secret","phase":"action","text":"Utiliser le BOMBARDEMENT pour détruire la dernière force terrestre d'un joueur sur une planète.","expansion":"base"},
+    {"name":"Spark a Rebellion","kind":"secret","phase":"action","text":"Gagner un combat contre le joueur qui possède le plus de points de victoire.","expansion":"base"},
+    {"name":"Turn Their Fleets to Dust","kind":"secret","phase":"action","text":"Utiliser le CANON SPATIAL pour détruire le dernier vaisseau d'un joueur dans un système.","expansion":"base"},
+    {"name":"Unveil Flagship","kind":"secret","phase":"action","text":"Gagner un combat spatial dans un système qui contient votre vaisseau amiral.","expansion":"base"},
+    {"name":"Adapt New Strategies","kind":"secret","phase":"status","text":"Posséder 2 technologies de faction.","expansion":"base"},
+    {"name":"Become the Gatekeeper","kind":"secret","phase":"status","text":"Avoir des vaisseaux dans un système contenant un trou de ver alpha et dans un système contenant un trou de ver bêta.","expansion":"base"},
+    {"name":"Control the Region","kind":"secret","phase":"status","text":"Avoir des vaisseaux dans 6 systèmes.","expansion":"base"},
+    {"name":"Cut Supply Lines","kind":"secret","phase":"status","text":"Avoir au moins un vaisseau dans le même système qu'un dock spatial d'un autre joueur.","expansion":"base"},
+    {"name":"Establish a Perimeter","kind":"secret","phase":"status","text":"Avoir 4 unités PDS sur le plateau.","expansion":"base"},
+    {"name":"Forge an Alliance","kind":"secret","phase":"status","text":"Contrôler 4 planètes culturelles.","expansion":"base"},
+    {"name":"Form a Spy Network","kind":"secret","phase":"status","text":"Défausser 5 cartes Action.","expansion":"base"},
+    {"name":"Fuel the War Machine","kind":"secret","phase":"status","text":"Avoir 3 docks spatiaux sur le plateau.","expansion":"base"},
+    {"name":"Gather a Mighty Fleet","kind":"secret","phase":"status","text":"Avoir 5 cuirassés (dreadnoughts) sur le plateau.","expansion":"base"},
+    {"name":"Learn the Secrets of the Cosmos","kind":"secret","phase":"status","text":"Avoir des vaisseaux dans 3 systèmes chacun adjacent à une anomalie.","expansion":"base"},
+    {"name":"Master the Laws of Physics","kind":"secret","phase":"status","text":"Posséder 4 technologies de la même couleur.","expansion":"base"},
+    {"name":"Mine Rare Metals","kind":"secret","phase":"status","text":"Contrôler 4 planètes dangereuses.","expansion":"base"},
+    {"name":"Monopolize Production","kind":"secret","phase":"status","text":"Contrôler 4 planètes industrielles.","expansion":"base"},
+    {"name":"Occupy the Seat of the Empire","kind":"secret","phase":"status","text":"Contrôler Mecatol Rex et avoir au moins 3 vaisseaux dans son système.","expansion":"base"},
+    {"name":"Threaten Enemies","kind":"secret","phase":"status","text":"Avoir des vaisseaux dans un système adjacent au système d'origine d'un autre joueur.","expansion":"base"},
+    {"name":"Become a Martyr","kind":"secret","phase":"action","text":"Perdre le contrôle d'une planète située dans un système d'origine.","expansion":"pok"},
+    {"name":"Betray a Friend","kind":"secret","phase":"action","text":"Gagner un combat contre un joueur dont vous déteniez la billet à ordre au début de votre action tactique.","expansion":"pok"},
+    {"name":"Brave the Void","kind":"secret","phase":"action","text":"Gagner un combat dans une anomalie.","expansion":"pok"},
+    {"name":"Darken the Skies","kind":"secret","phase":"action","text":"Gagner un combat dans le système d'origine d'un autre joueur.","expansion":"pok"},
+    {"name":"Demonstrate Your Power","kind":"secret","phase":"action","text":"Avoir au moins 3 vaisseaux non-chasseurs dans le système actif à la fin d'un combat spatial.","expansion":"pok"},
+    {"name":"Fight With Precision","kind":"secret","phase":"action","text":"Utiliser le BARRAGE ANTI-CHASSEURS pour détruire le dernier chasseur d'un joueur.","expansion":"pok"},
+    {"name":"Prove Endurance","kind":"secret","phase":"status","text":"Être le dernier joueur à passer durant la manche.","expansion":"pok"},
+    {"name":"Defy Space and Time","kind":"secret","phase":"status","text":"Avoir des unités dans le Nexus des trous de ver.","expansion":"pok"},
+    {"name":"Destroy Heretical Works","kind":"secret","phase":"status","text":"Purger 2 fragments de relique.","expansion":"pok"},
+    {"name":"Establish Hegemony","kind":"secret","phase":"status","text":"Contrôler des planètes dont l'influence combinée est d'au moins 12.","expansion":"pok"},
+    {"name":"Foster Cohesion","kind":"secret","phase":"status","text":"Être voisin de tous les autres joueurs.","expansion":"pok"},
+    {"name":"Hoard Raw Materials","kind":"secret","phase":"status","text":"Contrôler des planètes dont les ressources combinées sont d'au moins 12.","expansion":"pok"},
+    {"name":"Mechanize The Military","kind":"secret","phase":"status","text":"Avoir 1 méca sur chacune de 4 planètes différentes.","expansion":"pok"},
+    {"name":"Occupy The Fringe","kind":"secret","phase":"status","text":"Avoir au moins 9 forces terrestres sur une planète ne contenant pas l'un de vos docks spatiaux.","expansion":"pok"},
+    {"name":"Produce En Masse","kind":"secret","phase":"status","text":"Avoir des unités dont la valeur de Production combinée est d'au moins 8 dans un seul système.","expansion":"pok"},
+    {"name":"Seize An Icon","kind":"secret","phase":"status","text":"Contrôler une planète légendaire.","expansion":"pok"},
+    {"name":"Stake Your Claim","kind":"secret","phase":"status","text":"Contrôler une planète dans un système contenant aussi une planète contrôlée par un autre joueur.","expansion":"pok"},
+    {"name":"Strengthen Bonds","kind":"secret","phase":"status","text":"Avoir la billet à ordre d'un autre joueur dans votre zone de jeu.","expansion":"pok"},
+    {"name":"Dictate Policy","kind":"secret","phase":"agenda","text":"Avoir au moins 3 lois en jeu.","expansion":"pok"},
+    {"name":"Drive the Debate","kind":"secret","phase":"agenda","text":"Être élu (vous ou une planète que vous contrôlez) lors de la résolution d'un projet.","expansion":"pok"}
+  ],
+
+  /* ---------- Agendas (lois & directives) ---------- */
+  agendas: [
+    {"name":"Anti-Intellectual Revolution","type":"law","elect":"Pour / Contre","text":"Pour : après qu'un joueur a recherché une technologie, il doit détruire l'un de ses vaisseaux non-chasseurs. Contre : chaque joueur épuise 1 planète par technologie qu'il posséde.","expansion":"base"},
+    {"name":"Classified Document Leaks","type":"law","elect":"Objectif secret validé","text":"Quand cette loi est révélée, si aucun objectif secret n'a été marqué, défaussez-la. L'objectif secret élu devient un objectif public.","expansion":"base"},
+    {"name":"Committee Formation","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. Avant un vote élisant un joueur, le détenteur peut défausser cette carte pour choisir directement le joueur élu.","expansion":"base"},
+    {"name":"Conventions of War","type":"law","elect":"Pour / Contre","text":"Pour : les joueurs ne peuvent pas utiliser le BOMBARDEMENT contre des unités sur des planètes culturelles. Contre : chaque votant Contre défausse toutes ses cartes action.","expansion":"base"},
+    {"name":"Core Mining","type":"law","elect":"Planète dangereuse","text":"Détruisez 1 infanterie sur la planète élue. Attachez cette carte : sa valeur en ressources est augmentée de 2.","expansion":"base"},
+    {"name":"Demilitarized Zone","type":"law","elect":"Planète culturelle","text":"Détruisez toutes les unités sur la planète élue. Attachez cette carte : des unités ne peuvent plus jamais y être placées ni s'y déplacer.","expansion":"base"},
+    {"name":"Enforced Travel Ban","type":"law","elect":"Pour / Contre","text":"Pour : les trous de ver alpha et bêta n'ont aucun effet pendant le mouvement. Contre : détruisez chaque PDS adjacent à un trou de ver alpha ou bêta.","expansion":"base"},
+    {"name":"Executive Sanctions","type":"law","elect":"Pour / Contre","text":"Pour : chaque joueur ne peut avoir que 3 cartes action en main au maximum. Contre : chaque joueur défausse 1 carte action au hasard.","expansion":"base"},
+    {"name":"Fleet Regulations","type":"law","elect":"Pour / Contre","text":"Pour : aucun joueur ne peut avoir plus de 4 jetons dans sa réserve de flotte. Contre : chaque joueur place 1 pion de commandement dans sa réserve de flotte.","expansion":"base"},
+    {"name":"Holy Planet of Ixth","type":"law","elect":"Planète culturelle","text":"Attachez cette carte à la planète élue : son propriétaire gagne 1 point de victoire ; aucune unité n'y subit de BOMBARDEMENT ni de combat. Gagne/perd 1 PV en prenant/perdant le contrôle.","expansion":"base"},
+    {"name":"Homeland Defense Act","type":"law","elect":"Pour / Contre","text":"Pour : chaque joueur peut avoir un nombre illimité de PDS sur les planètes qu'il contrôle. Contre : chaque joueur détruit 1 de ses PDS.","expansion":"base"},
+    {"name":"Imperial Arbiter","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. À la phase de statut, son détenteur peut la défausser pour échanger l'une de ses cartes stratégie avec celle d'un autre joueur.","expansion":"base"},
+    {"name":"Minister of Commerce","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. Quand il réapprovisionne ses commodités, il gagne 1 bien commercial par joueur voisin.","expansion":"base"},
+    {"name":"Minister of Exploration","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. Quand il prend le contrôle d'une planète durant une activation, il gagne 1 bien commercial.","expansion":"base"},
+    {"name":"Minister of Industry","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. Quand il place un dock spatial, toutes ses unités de ce système peuvent utiliser leur PRODUCTION.","expansion":"base"},
+    {"name":"Minister of Peace","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. Après qu'un joueur a activé un système contenant ses unités, le détenteur peut défausser cette carte pour mettre fin au tour du joueur actif.","expansion":"base"},
+    {"name":"Minister of Policy","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. À la fin de la phase de statut, il pioche 1 carte action.","expansion":"base"},
+    {"name":"Minister of Sciences","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. Quand il résout l'effet primaire ou secondaire de la stratégie Technologie, il ne paie pas le coût en ressources d'une technologie.","expansion":"base"},
+    {"name":"Minister of War","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. Il peut la défausser pour retirer 1 de ses pions de commandement du plateau, puis effectuer 1 action supplémentaire.","expansion":"base"},
+    {"name":"Prophecy of Ixth","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte : +1 aux jets de combat de ses chasseurs. Défaussez-la s'il utilise une PRODUCTION pour produire 2 chasseurs ou plus.","expansion":"base"},
+    {"name":"Publicize Weapon Schematics","type":"law","elect":"Pour / Contre","text":"Pour : on ignore les prérequis des Soleils de Guerre ; tous les Soleils de Guerre perdent ENCAISSER. Contre : chaque joueur possédant un Soleil de Guerre défausse toutes ses cartes action.","expansion":"base"},
+    {"name":"Regulated Conscription","type":"law","elect":"Pour / Contre","text":"Pour : quand un joueur produit des chasseurs ou de l'infanterie, il n'en produit qu'1 pour leur coût au lieu de 2. Contre : aucun effet.","expansion":"base"},
+    {"name":"Representative Government","type":"law","elect":"Pour / Contre","text":"Pour : les joueurs ne peuvent pas épuiser de planètes pour voter ; chaque joueur lance 1 vote par projet. Contre : chaque joueur épuise toutes ses planètes culturelles.","expansion":"base"},
+    {"name":"Research Team: Biotic","type":"law","elect":"Planète industrielle","text":"Attachez cette carte à la planète élue. Quand son propriétaire recherche une technologie, il peut épuiser cette planète pour ignorer 1 prérequis vert.","expansion":"base"},
+    {"name":"Research Team: Cybernetic","type":"law","elect":"Planète industrielle","text":"Attachez cette carte à la planète élue. Quand son propriétaire recherche une technologie, il peut épuiser cette planète pour ignorer 1 prérequis jaune.","expansion":"base"},
+    {"name":"Research Team: Propulsion","type":"law","elect":"Planète industrielle","text":"Attachez cette carte à la planète élue. Quand son propriétaire recherche une technologie, il peut épuiser cette planète pour ignorer 1 prérequis bleu.","expansion":"base"},
+    {"name":"Research Team: Warfare","type":"law","elect":"Planète dangereuse","text":"Attachez cette carte à la planète élue. Quand son propriétaire recherche une technologie, il peut épuiser cette planète pour ignorer 1 prérequis rouge.","expansion":"base"},
+    {"name":"Senate Sanctuary","type":"law","elect":"Planète culturelle","text":"Attachez cette carte à la planète élue : sa valeur en influence est augmentée de 2.","expansion":"base"},
+    {"name":"Shard of the Throne","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte et 1 point de victoire. Si un joueur gagne un combat contre le détenteur, il vole cette carte et son point de victoire.","expansion":"base"},
+    {"name":"Shared Research","type":"law","elect":"Pour / Contre","text":"Pour : les unités de chaque joueur peuvent se déplacer à travers les nébuleuses. Contre : chaque joueur place 1 pion de commandement dans son système natal.","expansion":"base"},
+    {"name":"Terraforming Initiative","type":"law","elect":"Planète dangereuse","text":"Attachez cette carte à la planète élue : ses valeurs en ressources et en influence sont augmentées de 1.","expansion":"base"},
+    {"name":"The Crown of Emphidia","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. À la fin de son tour, s'il contrôle une planète dans le système natal d'un autre joueur, il gagne 1 point de victoire. Se vole comme une couronne.","expansion":"base"},
+    {"name":"The Crown of Thalnos","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte. Lors d'un round de combat, il peut relancer n'importe quel nombre de ses dés, mais toute unité qui rate alors son tir est détruite.","expansion":"base"},
+    {"name":"Wormhole Reconstruction","type":"law","elect":"Pour / Contre","text":"Pour : tous les systèmes contenant un trou de ver alpha sont adjacents entre eux, de même pour les bêta. Contre : chaque joueur place 1 pion de commandement dans chaque système à trou de ver qu'il contrôle.","expansion":"base"},
+    {"name":"Archived Secret","type":"directive","elect":"Joueur","text":"Le joueur élu pioche 1 objectif secret.","expansion":"base"},
+    {"name":"Arms Reduction","type":"directive","elect":"Pour / Contre","text":"Pour : chaque joueur détruit ses cuirassés en n'en gardant que 2 au maximum, et ses croiseurs en n'en gardant que 4. Contre : chaque joueur épuise toutes ses planètes à spécialité technologique.","expansion":"base"},
+    {"name":"Colonial Redistribution","type":"directive","elect":"Planète (hors natale et Mecatol Rex)","text":"Détruisez toutes les unités sur la planète élue. Le joueur ayant le moins de points de victoire y place 1 infanterie de sa réserve.","expansion":"base"},
+    {"name":"Compensated Disarmament","type":"directive","elect":"Planète","text":"Détruisez chaque force terrestre sur la planète élue. Son propriétaire gagne 1 bien commercial par unité ainsi détruite.","expansion":"base"},
+    {"name":"Economic Equality","type":"directive","elect":"Pour / Contre","text":"Pour : chaque joueur rend tous ses biens commerciaux, puis gagne 5 biens commerciaux. Contre : chaque joueur rend tous ses biens commerciaux à la réserve.","expansion":"base"},
+    {"name":"Incentive Program","type":"directive","elect":"Pour / Contre","text":"Pour : révélez 1 objectif public d'étape I. Contre : révélez 1 objectif public d'étape II.","expansion":"base"},
+    {"name":"Ixthian Artifact","type":"directive","elect":"Pour / Contre","text":"Pour : lancez 1 dé. Sur 6 ou plus, chaque joueur peut rechercher 2 technologies ; sinon, détruisez toutes les unités dans le système de Mecatol Rex et les systèmes adjacents. Contre : aucun effet.","expansion":"base"},
+    {"name":"Judicial Abolishment","type":"directive","elect":"Loi en jeu","text":"Si aucune loi n'est en jeu, défaussez ce projet. Sinon, défaussez la loi élue.","expansion":"base"},
+    {"name":"Miscount Disclosed","type":"directive","elect":"Loi en jeu","text":"Si aucune loi n'est en jeu, défaussez ce projet. Sinon, on revote sur la loi élue comme si elle venait d'être révélée.","expansion":"base"},
+    {"name":"Mutiny","type":"directive","elect":"Pour / Contre","text":"Pour : chaque votant Pour gagne 1 point de victoire. Contre : chaque votant Pour perd 1 point de victoire.","expansion":"base"},
+    {"name":"New Constitution","type":"directive","elect":"Pour / Contre","text":"Si aucune loi n'est en jeu, défaussez ce projet. Pour : défaussez toutes les lois en jeu ; au début de la prochaine manche, chaque joueur épuise toutes les planètes de son système natal. Contre : aucun effet.","expansion":"base"},
+    {"name":"Public Execution","type":"directive","elect":"Joueur","text":"Le joueur élu défausse toutes ses cartes action et ne peut pas voter sur le prochain projet. S'il a le jeton orateur, il le donne au joueur à sa gauche.","expansion":"base"},
+    {"name":"Seed of an Empire","type":"directive","elect":"Pour / Contre","text":"Pour : le joueur ayant le plus de points de victoire gagne 1 point de victoire. Contre : le joueur ayant le moins de points de victoire gagne 1 point de victoire.","expansion":"base"},
+    {"name":"Swords to Plowshares","type":"directive","elect":"Pour / Contre","text":"Pour : chaque joueur détruit la moitié de son infanterie sur chaque planète (arrondi au supérieur) et gagne 1 bien commercial par unité détruite. Contre : chaque joueur place 1 infanterie sur chaque planète qu'il contrôle.","expansion":"base"},
+    {"name":"Unconventional Measures","type":"directive","elect":"Pour / Contre","text":"Pour : chaque votant Pour pioche 2 cartes action. Contre : chaque votant Pour défausse toutes ses cartes action.","expansion":"base"},
+    {"name":"Wormhole Research","type":"directive","elect":"Pour / Contre","text":"Pour : chaque joueur ayant un vaisseau dans un système à trou de ver peut rechercher 1 technologie, puis détruit ses unités dans ces systèmes. Contre : chaque joueur retire 1 pion de sa réserve de flotte.","expansion":"base"},
+    {"name":"Articles of War","type":"law","elect":"Pour / Contre","text":"Pour : tous les mécas perdent leurs capacités imprimées, sauf ENCAISSER. Contre : chaque votant Pour gagne 3 biens commerciaux.","expansion":"pok"},
+    {"name":"Checks and Balances","type":"law","elect":"Pour / Contre","text":"Pour : quand un joueur choisit une carte stratégie, il distribue les autres restantes aux joueurs n'en ayant pas encore. Contre : à la phase de statut, chaque joueur ne prépare que 3 de ses planètes.","expansion":"pok"},
+    {"name":"Nexus Sovereignty","type":"law","elect":"Pour / Contre","text":"Pour : les trous de ver alpha et bêta du Nexus n'ont aucun effet. Contre : placez un jeton de trou de ver gamma dans le système de Mecatol Rex.","expansion":"pok"},
+    {"name":"Political Censure","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte et 1 point de victoire ; il ne peut pas jouer de cartes action. S'il la défausse ou la perd, il perd 1 point de victoire.","expansion":"pok"},
+    {"name":"Search Warrant","type":"law","elect":"Joueur","text":"Le joueur élu gagne cette carte ; il pioche 2 objectifs secrets et joue ses objectifs secrets face visible (révélés).","expansion":"pok"},
+    {"name":"Armed Forces Standardization","type":"directive","elect":"Joueur","text":"Le joueur élu réorganise ses pions de commandement pour avoir 3 en réserve tactique, 3 en réserve de flotte et 2 en réserve stratégique.","expansion":"pok"},
+    {"name":"Clandestine Operations","type":"directive","elect":"Pour / Contre","text":"Pour : chaque joueur retire 2 pions de commandement de sa feuille (n'importe quelle réserve). Contre : chaque joueur retire 1 pion de sa réserve de flotte.","expansion":"pok"},
+    {"name":"Covert Legislation","type":"directive","elect":"Pour / Contre","text":"Quand révélé, l'orateur pioche le projet suivant sans le révéler et n'en lit que les résultats ; les joueurs votent sans connaître l'effet.","expansion":"pok"},
+    {"name":"Galactic Crisis Pact","type":"directive","elect":"Carte stratégie","text":"Chaque joueur, en commençant par l'orateur, peut résoudre la compétence secondaire de la carte stratégie élue sans dépenser de pion de commandement.","expansion":"pok"},
+    {"name":"Minister of Antiques","type":"directive","elect":"Joueur","text":"Le joueur élu gagne 1 relique.","expansion":"pok"},
+    {"name":"Rearmament Agreement","type":"directive","elect":"Pour / Contre","text":"Pour : chaque joueur place 1 méca de sa réserve sur une planète qu'il contrôle dans son système natal. Contre : chaque joueur remplace chacun de ses mécas par 1 infanterie.","expansion":"pok"},
+    {"name":"Research Grant Reallocation","type":"directive","elect":"Joueur","text":"Le joueur élu recherche 1 technologie en ignorant ses prérequis, puis retire de sa réserve de flotte 1 jeton par prérequis ainsi ignoré.","expansion":"pok"}
+  ],
+
+  /* ---------- Reliques ---------- */
+  relics: [
+    {"name":"Dominus Orb","text":"Avant de déplacer vos unités lors d'une action tactique, vous pouvez purger cette carte pour déplacer et transporter des unités situées dans des systèmes contenant un de vos pions de commandement.","expansion":"pok"},
+    {"name":"Maw of Worlds","text":"Au début de la phase de Projet, vous pouvez purger cette carte et épuiser toutes vos planètes pour gagner une technologie de votre choix.","expansion":"pok"},
+    {"name":"Scepter of Emelpar","text":"Lorsque vous devriez dépenser un pion de votre réserve stratégique, vous pouvez épuiser cette carte pour dépenser un jeton de vos renforts à la place.","expansion":"pok"},
+    {"name":"Shard of the Throne","text":"Quand vous gagnez cette carte, gagnez 1 point de victoire ; quand vous la perdez, perdez 1 point de victoire. Si un joueur prend le contrôle d'une planète légendaire ou d'une planète de votre système d'origine que vous contrôliez, il gagne cette carte.","expansion":"pok"},
+    {"name":"Stellar Converter","text":"ACTION : choisissez une planète non-origine et non-légendaire (autre que Mecatol Rex) dans un système adjacent à vos unités possédant BOMBARDEMENT ; détruisez toutes ses unités, puis purgez ses attachements et sa carte planète.","expansion":"pok"},
+    {"name":"The Codex","text":"ACTION : purgez cette carte pour prendre jusqu'à 3 cartes Action de votre choix dans la défausse des cartes Action.","expansion":"pok"},
+    {"name":"The Crown of Emphidia","text":"Après une action tactique, vous pouvez épuiser cette carte pour explorer 1 planète que vous contrôlez. À la fin de la phase de statut, si vous contrôlez le « Tombeau d'Emphidia », vous pouvez purger cette carte pour gagner 1 point de victoire.","expansion":"pok"},
+    {"name":"The Crown of Thalnos","text":"Lors de chaque round de combat, le propriétaire peut relancer n'importe quel nombre de ses dés en appliquant +1 aux résultats. Toute unité qui relance mais ne produit pas au moins 1 touche est détruite.","expansion":"pok"},
+    {"name":"The Obsidian","text":"Quand vous gagnez cette carte, piochez 1 objectif secret. Vous pouvez avoir 1 objectif secret supplémentaire (marqué ou non).","expansion":"pok"},
+    {"name":"The Prophet's Tears","text":"Lorsque vous recherchez une technologie, vous pouvez épuiser cette carte pour ignorer 1 prérequis ou pour piocher 1 carte Action.","expansion":"pok"},
+    {"name":"Dynamis Core","text":"La valeur de commodités de votre feuille de faction est augmentée de 2. ACTION : purgez cette carte pour gagner un nombre de biens commerciaux égal à votre valeur de commodités imprimée + 2.","expansion":"codex"},
+    {"name":"JR-XS455-O","text":"Cette carte est un agent. Épuisez cet agent et choisissez un joueur ; ce joueur peut dépenser 3 ressources pour placer une structure sur une planète qu'il contrôle, sinon il gagne 1 bien commercial.","expansion":"codex"},
+    {"name":"Nano-Forge","text":"ACTION : attachez cette carte à une planète non-légendaire et non-origine que vous contrôlez ; ses valeurs de ressources et d'influence augmentent de 2 et elle devient une planète légendaire.","expansion":"codex"}
+  ],
+
+  /* ---------- Cartes d'exploration ---------- */
+  exploration: [
+    {"name":"Lazax Survivors","trait":"hazardous","type":"Attachement","text":"La valeur de ressources de cette planète augmente de 1 et sa valeur d'influence de 2."},
+    {"name":"Mining World","trait":"hazardous","type":"Attachement","text":"La valeur de ressources de cette planète augmente de 2."},
+    {"name":"Rich World","trait":"hazardous","type":"Attachement","text":"La valeur de ressources de cette planète augmente de 1."},
+    {"name":"Core Mine","trait":"hazardous","type":"Action","text":"ACTION : si vous avez 1 méca sur cette planète, ou en retirant 1 infanterie de cette planète, gagnez 1 bien commercial. Puis purgez cette carte."},
+    {"name":"Expedition","trait":"hazardous","type":"Action","text":"ACTION : si vous avez 1 méca sur cette planète, ou en retirant 1 infanterie de cette planète, préparez cette planète. Puis purgez cette carte."},
+    {"name":"Volatile Fuel Source","trait":"hazardous","type":"Action","text":"ACTION : si vous avez 1 méca sur cette planète, ou en retirant 1 infanterie de cette planète, gagnez 1 pion de commandement. Puis purgez cette carte."},
+    {"name":"Warfare Research Facility","trait":"hazardous","type":"Attachement","text":"Si la planète n'a pas de spécialité technologique, elle gagne une spécialité rouge ; sinon ses valeurs de ressources et d'influence augmentent de 1 chacune."},
+    {"name":"Hazardous Relic Fragment","trait":"hazardous","type":"Fragment de relique","text":"ACTION : purgez 3 fragments de ce type pour gagner 1 relique. Échangeable lors d'une transaction."},
+    {"name":"Demilitarized Zone","trait":"cultural","type":"Attachement","text":"Renvoyez toutes les structures de cette planète dans les renforts et placez ses forces terrestres dans la zone spatiale. Aucune unité ne peut être engagée, produite ou placée sur cette planète."},
+    {"name":"Dyson Sphere","trait":"cultural","type":"Attachement","text":"La valeur de ressources de cette planète augmente de 2 et sa valeur d'influence de 1."},
+    {"name":"Freelancers","trait":"cultural","type":"Action","text":"ACTION : produisez 1 unité dans ce système ; vous pouvez dépenser de l'influence comme des ressources pour la produire. Puis purgez cette carte."},
+    {"name":"Mercenary Outfit","trait":"cultural","type":"Action","text":"ACTION : vous pouvez placer 1 infanterie de vos renforts sur cette planète. Puis purgez cette carte."},
+    {"name":"Paradise World","trait":"cultural","type":"Attachement","text":"La valeur d'influence de cette planète augmente de 2."},
+    {"name":"Tomb of Emphidia","trait":"cultural","type":"Attachement","text":"La valeur d'influence de cette planète augmente de 1. Le détenteur de la relique « The Crown of Emphidia » peut la purger à la fin de son tour, s'il possède cette planète, pour gagner 1 point de victoire."},
+    {"name":"Cultural Relic Fragment","trait":"cultural","type":"Fragment de relique","text":"ACTION : purgez 3 fragments de ce type pour gagner 1 relique. Échangeable lors d'une transaction."},
+    {"name":"Abandoned Warehouses","trait":"industrial","type":"Action","text":"ACTION : gagnez 2 biens commerciaux, ou convertissez jusqu'à 2 de vos commodités en biens commerciaux. Puis purgez cette carte."},
+    {"name":"Biotic Research Facility","trait":"industrial","type":"Attachement","text":"Si la planète n'a pas de spécialité technologique, elle gagne une spécialité verte ; sinon ses valeurs de ressources et d'influence augmentent de 1 chacune."},
+    {"name":"Cybernetic Research Facility","trait":"industrial","type":"Attachement","text":"Si la planète n'a pas de spécialité technologique, elle gagne une spécialité jaune ; sinon ses valeurs de ressources et d'influence augmentent de 1 chacune."},
+    {"name":"Functioning Base","trait":"industrial","type":"Action","text":"ACTION : gagnez 1 commodité, ou dépensez 1 bien commercial ou 1 commodité pour piocher 1 carte Action. Puis purgez cette carte."},
+    {"name":"Local Fabricators","trait":"industrial","type":"Action","text":"ACTION : gagnez 1 commodité, ou dépensez 1 bien commercial ou 1 commodité pour placer 1 méca de vos renforts sur cette planète. Puis purgez cette carte."},
+    {"name":"Propulsion Research Facility","trait":"industrial","type":"Attachement","text":"Si la planète n'a pas de spécialité technologique, elle gagne une spécialité bleue ; sinon ses valeurs de ressources et d'influence augmentent de 1 chacune."},
+    {"name":"Industrial Relic Fragment","trait":"industrial","type":"Fragment de relique","text":"ACTION : purgez 3 fragments de ce type pour gagner 1 relique. Échangeable lors d'une transaction."},
+    {"name":"Derelict Vessel","trait":"frontier","type":"Bonus","text":"Piochez 1 objectif secret. Puis purgez cette carte."},
+    {"name":"Enigmatic Device","trait":"frontier","type":"Action","text":"Quand révélée, placez-la dans votre zone de jeu. ACTION : dépensez 6 ressources et purgez cette carte pour rechercher 1 technologie."},
+    {"name":"Gamma Wormhole","trait":"frontier","type":"Planète","text":"Placez un jeton de trou de ver gamma dans ce système. Puis purgez cette carte."},
+    {"name":"Ion Storm","trait":"frontier","type":"Planète","text":"Placez 1 jeton de tempête ionique dans ce système (une face au choix). Quand un vaisseau emprunte son trou de ver, retournez le jeton."},
+    {"name":"Lost Crew","trait":"frontier","type":"Bonus","text":"Piochez 2 cartes Action. Puis purgez cette carte."},
+    {"name":"Merchant Station","trait":"frontier","type":"Action","text":"ACTION : réapprovisionnez vos commodités, ou convertissez vos commodités en biens commerciaux. Puis purgez cette carte."},
+    {"name":"Mirage","trait":"frontier","type":"Planète","text":"Placez le jeton planète Mirage dans ce système et gagnez la carte planète Mirage (préparée, non considérée comme explorée). Puis purgez cette carte."},
+    {"name":"Unknown Relic Fragment","trait":"frontier","type":"Fragment de relique","text":"Considéré comme un fragment de n'importe quel type. ACTION : purgez 3 fragments du même type pour gagner 1 relique. Échangeable lors d'une transaction."}
+  ]
+};
+
+/* Exposé en global pour index.html */
+if (typeof window !== 'undefined') window.TI4_DATA = TI4_DATA;
+if (typeof module !== 'undefined') module.exports = TI4_DATA;

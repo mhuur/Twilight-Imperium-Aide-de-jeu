@@ -1,0 +1,64 @@
+TWILIGHT IMPERIUM IV — AIDE DE JEU (Base + Prophecy of Kings + Codex Keleres)
+============================================================================
+Tout en français (terminologie de l'édition française : Guide de Référence + Livret).
+
+LE SEUL FICHIER À PARTAGER
+--------------------------
+  >>> Twilight-Imperium-aide-de-jeu.html <<<
+C'est un fichier unique, autonome, qui fonctionne 100 % hors-ligne.
+Double-cliquez dessus pour l'ouvrir dans un navigateur. Pour le partager aux
+6 joueurs : envoyez juste ce fichier (mail, clé USB, cloud). Rien d'autre n'est requis.
+
+(Les autres fichiers du dossier — index.html, data.js, *.js, *.py, les PDF — ne servent
+qu'à fabriquer/modifier l'aide. Vous n'avez pas besoin de les partager.)
+
+L'METTRE SUR LE TÉLÉPHONE COMME UNE APPLI
+-----------------------------------------
+L'aide est prête à être "installée" (icône sur l'écran d'accueil, plein écran, hors-ligne).
+Il faut juste qu'elle soit accessible via une adresse web. Deux façons :
+
+A) SANS RIEN HÉBERGER (le plus simple, marche partout) :
+   1. Mettez le fichier sur votre téléphone (mail à vous-même, Google Drive, etc.).
+   2. Ouvrez-le dans le navigateur du téléphone.
+   3. iPhone (Safari) : bouton Partager → "Sur l'écran d'accueil".
+      Android (Chrome) : menu ⋮ → "Ajouter à l'écran d'accueil".
+   => Une icône "TI4 Aide" apparaît et ouvre l'aide en plein écran.
+
+B) AVEC UN VRAI LIEN PARTAGEABLE (gratuit, ~2 min) :
+   1. Allez sur un hébergeur de fichier statique gratuit (ex. Netlify Drop, Vercel,
+      GitHub Pages, Cloudflare Pages).
+   2. Glissez-déposez Twilight-Imperium-aide-de-jeu.html : vous obtenez une adresse https.
+   3. Envoyez ce lien aux joueurs ; chacun l'ouvre et "Ajoute à l'écran d'accueil".
+
+CONTENU (onglets)
+-----------------
+- FACTIONS (25) : nom français + nom anglais (sous-titre), compétences, unités & tech de
+  départ, Système Mère, leaders (Agent / Commandant / Héros), Méca, Vaisseau amiral,
+  technologies de faction, Billet à ordre. Filtre Base / PoK / Codex.
+- CARTES STRATÉGIE (8) : Gouvernance, Diplomatie, Politique, Construction, Commerce,
+  Guerre, Technologie, Intrigue — compétences primaire/secondaire.
+- PLANÈTES (62) : ressources, influence, type, spécialité tech, planètes légendaires.
+- UNITÉS : coût, combat, mouvement, capacité, compétences (base + améliorations II).
+- OBJECTIFS (80) : publics Étape I/II et secrets.
+- PROJETS (62) : lois & directives (cartes "Projet" = agendas), objet du vote et effet.
+- RELIQUES (13) · EXPLORATION (30, decks Culturelle/Dangereuse/Industrielle/Frontière).
+- DÉROULEMENT : séquence des phases (Stratégie, Action, Statut, Projet).
+- DRAFT : tirage des factions (nb de joueurs, 1 faction ou pool, PoK/Codex, ordre orateur).
+
+Sur téléphone : le bouton ☰ ouvre le menu de navigation. La loupe filtre l'onglet courant.
+
+À VÉRIFIER ÉVENTUELLEMENT (faible incertitude)
+----------------------------------------------
+- Noms FR des factions : ceux du jeu de base sont conformes à l'édition FR ; quelques noms
+  de l'extension (ex. Le Vol Argent, L'Empyrée) sont une meilleure approximation — le nom
+  anglais reste affiché en sous-titre pour lever toute ambiguïté.
+- Argent Flight : Agent = Trrakan Aun Zulok, Commandant = Trillossa Aun Mirik.
+- Vuil'Raith : nom du méca "Reanimator" (une seule source).
+- Certains textes de héros / billets à ordre / projets sont reformulés d'après l'effet
+  (le sens est exact, la formulation peut différer du texte de la carte).
+
+POUR MODIFIER UNE DONNÉE (facultatif)
+-------------------------------------
+Éditez data.js, puis régénérez le fichier unique :  node build-fichier-unique.js
+
+Bonne partie !
