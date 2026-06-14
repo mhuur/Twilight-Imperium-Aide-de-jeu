@@ -1,0 +1,19 @@
+{
+  "name": "Twilight Imperium IV — Aide de jeu",
+  "short_name": "TI4 Aide",
+  "description": "Aide de jeu hors-ligne (FR) : factions, cartes Stratégie, planètes, objectifs, projets, reliques, exploration, déroulement et tirage.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0e1a",
+  "theme_color": "#0a0e1a",
+  "categories": ["games", "utilities"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

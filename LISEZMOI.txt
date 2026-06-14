@@ -12,23 +12,22 @@ Double-cliquez dessus pour l'ouvrir dans un navigateur. Pour le partager aux
 (Les autres fichiers du dossier — index.html, data.js, *.js, *.py, les PDF — ne servent
 qu'à fabriquer/modifier l'aide. Vous n'avez pas besoin de les partager.)
 
-L'METTRE SUR LE TÉLÉPHONE COMME UNE APPLI
------------------------------------------
-L'aide est prête à être "installée" (icône sur l'écran d'accueil, plein écran, hors-ligne).
-Il faut juste qu'elle soit accessible via une adresse web. Deux façons :
+L'METTRE SUR LE TÉLÉPHONE COMME UNE APPLI (PWA)
+-----------------------------------------------
+Le projet est sur GitHub : https://github.com/mhuur/Twilight-Imperium-Aide-de-jeu
+C'est une vraie web app installable (icône, plein écran, hors-ligne).
 
-A) SANS RIEN HÉBERGER (le plus simple, marche partout) :
-   1. Mettez le fichier sur votre téléphone (mail à vous-même, Google Drive, etc.).
-   2. Ouvrez-le dans le navigateur du téléphone.
-   3. iPhone (Safari) : bouton Partager → "Sur l'écran d'accueil".
-      Android (Chrome) : menu ⋮ → "Ajouter à l'écran d'accueil".
-   => Une icône "TI4 Aide" apparaît et ouvre l'aide en plein écran.
+1) Activez GitHub Pages (une seule fois) :
+   Repo > Settings > Pages > Source : "Deploy from a branch" > branche main > /(root) > Save.
+2) ~1 min plus tard, l'aide est en ligne ici :
+   https://mhuur.github.io/Twilight-Imperium-Aide-de-jeu/
+3) Ouvrez ce lien sur le téléphone :
+   - iPhone (Safari)  : Partager > "Sur l'écran d'accueil"
+   - Android (Chrome) : menu ⋮ > "Installer l'application"
+   => icône "TI4 Aide", plein écran, et ça marche même sans connexion.
 
-B) AVEC UN VRAI LIEN PARTAGEABLE (gratuit, ~2 min) :
-   1. Allez sur un hébergeur de fichier statique gratuit (ex. Netlify Drop, Vercel,
-      GitHub Pages, Cloudflare Pages).
-   2. Glissez-déposez Twilight-Imperium-aide-de-jeu.html : vous obtenez une adresse https.
-   3. Envoyez ce lien aux joueurs ; chacun l'ouvre et "Ajoute à l'écran d'accueil".
+(Sans hébergement : vous pouvez aussi simplement ouvrir le fichier
+ Twilight-Imperium-aide-de-jeu.html sur le téléphone — il fonctionne hors-ligne.)
 
 CONTENU (onglets)
 -----------------
